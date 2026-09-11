@@ -1,2 +1,0 @@
-function DashboardSkeleton() { return <div className="dashboard-skeleton" aria-label="Loading your learning dashboard"><div className="skeleton hero-skeleton" /><div className="skeleton-row">{[1, 2, 3, 4].map((item) => <div className="skeleton" key={item} />)}</div><div className="skeleton-grid">{[1, 2, 3].map((item) => <div className="skeleton" key={item} />)}</div></div>; }
-export default DashboardSkeleton;

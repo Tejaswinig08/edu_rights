@@ -1,0 +1,559 @@
+/* =====================================================
+   FEEDBACK SECTION & MODAL STYLES (Module & Dashboard)
+===================================================== */
+
+/* Module Detail inline feedback */
+.feedback-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid #d0f2ee;
+}
+
+.feedback-title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #095957;
+}
+
+.feedback-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.feedback-star-btn {
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: #d0d0d0;
+  transition: color 0.15s, transform 0.1s;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+.feedback-star-btn.active {
+  color: #f39c12;
+}
+
+.feedback-star-btn:hover {
+  transform: scale(1.15);
+}
+
+.feedback-star-label {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+.feedback-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d0f2ee;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #095957;
+  background: #f9fefe;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.feedback-textarea:focus {
+  outline: none;
+  border-color: #0abfa6;
+  background: #fff;
+}
+
+.feedback-char-count {
+  font-size: 12px;
+  color: #aaa;
+  text-align: right;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.feedback-submit-btn {
+  background: linear-gradient(135deg, #0abfa6, #095957);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.feedback-submit-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.feedback-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feedback-cancel-btn {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.feedback-cancel-btn:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+.feedback-success {
+  background: #e8f5e9;
+  color: #27ae60;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.feedback-error {
+  background: #fde8e8;
+  color: #e74c3c;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* =====================================================
+   MODULE CARD FEEDBACK BUTTON
+===================================================== */
+.module-card-completed-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-card-feedback-btn {
+  background: #fff8e1;
+  color: #d97706;
+  border: 1px solid #fcd34d;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.module-card-feedback-btn:hover {
+  background: #fef3c7;
+  color: #b45309;
+  transform: scale(1.05);
+}
+
+/* =====================================================
+   DASHBOARD FEEDBACK SECTION
+===================================================== */
+.dashboard-feedback-section {
+  margin-top: 36px;
+  margin-bottom: 24px;
+}
+
+.feedback-open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25);
+  transition: transform 0.15s, opacity 0.15s;
+}
+
+.feedback-open-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.feedback-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.feedback-item-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #d4f4ee;
+  box-shadow: 0 4px 12px rgba(9, 89, 87, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feedback-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(9, 89, 87, 0.09);
+}
+
+.feedback-item-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.feedback-item-icon {
+  font-size: 26px;
+  line-height: 1;
+  background: #eefcf9;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #c8f5ed;
+}
+
+.feedback-item-title-wrap {
+  flex: 1;
+}
+
+.feedback-item-title-wrap h4 {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #095957;
+}
+
+.feedback-rated-tag {
+  display: inline-block;
+  background: #fef3c7;
+  color: #b45309;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.feedback-pending-tag {
+  display: inline-block;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.feedback-item-comment {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+  font-style: italic;
+  background: #f8fafc;
+  padding: 10px 12px;
+  border-radius: 8px;
+  line-height: 1.4;
+  border-left: 3px solid #0abfa6;
+}
+
+.feedback-action-btn {
+  align-self: flex-start;
+  background: #095957;
+  color: #fff;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.feedback-action-btn:hover {
+  background: #0abfa6;
+}
+
+.feedback-dashboard-empty {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1.5px dashed #99e8dc;
+}
+
+.feedback-empty-badge {
+  font-size: 32px;
+  background: #fef3c7;
+  padding: 12px;
+  border-radius: 16px;
+}
+
+.feedback-empty-text h3 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  color: #095957;
+}
+
+.feedback-empty-text p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* =====================================================
+   FEEDBACK MODAL
+===================================================== */
+.feedback-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 89, 87, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.feedback-modal-card {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid #c9f5ef;
+  overflow: hidden;
+  animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.feedback-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #f0fdfa, #e6fffa);
+  border-bottom: 1px solid #d4f4ee;
+}
+
+.feedback-modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feedback-modal-icon {
+  font-size: 26px;
+}
+
+.feedback-modal-title-wrap h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #095957;
+}
+
+.feedback-modal-subtitle {
+  margin: 2px 0 0 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.feedback-modal-close {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.feedback-modal-close:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.feedback-modal-form {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedback-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feedback-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #095957;
+}
+
+.feedback-optional {
+  font-weight: 400;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.feedback-select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #c9f5ef;
+  background: #f8fafc;
+  color: #095957;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+  outline: none;
+}
+
+.feedback-select:focus {
+  border-color: #0abfa6;
+}
+
+.feedback-module-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0fdfa;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccfbf1;
+}
+
+.feedback-module-badge .badge-icon {
+  font-size: 20px;
+}
+
+.feedback-module-badge .badge-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #095957;
+}
+
+.feedback-stars-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.feedback-rating-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #d97706;
+  margin-left: 8px;
+}
+
+.feedback-modal-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-family: inherit;
+  font-size: 14px;
+  color: #0f172a;
+  resize: vertical;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.feedback-modal-textarea:focus {
+  border-color: #0abfa6;
+  box-shadow: 0 0 0 3px rgba(10, 191, 166, 0.15);
+}
+
+.feedback-alert {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.feedback-alert.error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.feedback-alert.success {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.feedback-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.feedback-empty-state {
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.feedback-empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.feedback-empty-state h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #095957;
+}
+
+.feedback-empty-state p {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+}

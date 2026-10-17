@@ -34,6 +34,10 @@ const moduleSchema = new mongoose.Schema({
     title: String,
     url: String,
   }],
+  translations: {
+    type: Object,
+    default: {},
+  },
 });
 
 const Module = mongoose.model("Module", moduleSchema);

@@ -4,6 +4,7 @@ import {
   signup,
   login,
   getMe,
+  updatePreferredLanguage,
 } from "../controllers/authController.js";
 
 import protect from "../middleware/authMiddleware.js";
@@ -34,6 +35,12 @@ router.get(
   "/me",
   protect,
   getMe
+);
+
+router.put(
+  "/language",
+  protect,
+  updatePreferredLanguage
 );
 
 

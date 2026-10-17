@@ -41,12 +41,26 @@ export const getQuiz = async (req, res) => {
       options: q.options,
     }));
 
+    let sanitizedTranslations = undefined;
+    if (quiz.translations && typeof quiz.translations === "object") {
+      sanitizedTranslations = {};
+      for (const [lang, tList] of Object.entries(quiz.translations)) {
+        if (Array.isArray(tList)) {
+          sanitizedTranslations[lang] = tList.map((tq) => ({
+            question: tq.question,
+            options: tq.options,
+          }));
+        }
+      }
+    }
+
     return res.status(200).json({
       success: true,
       quiz: {
         _id: quiz._id,
         moduleId: quiz.moduleId,
         questions: sanitizedQuestions,
+        translations: sanitizedTranslations,
       },
     });
   } catch (error) {

@@ -1,6 +1,7 @@
 import Feedback from "../models/Feedback.js";
 import Module from "../models/Module.js";
 import Progress from "../models/Progress.js";
+import { translateFeedbackComment } from "../services/translationService.js";
 
 // ==========================================
 // Submit Feedback (POST /api/feedback)
@@ -57,6 +58,19 @@ export const submitFeedback = async (req, res) => {
       });
     }
 
+    let translations = { en: "", hi: "", mr: "", es: "" };
+    let detectedLanguage = "en";
+    if (comment && comment.trim()) {
+      try {
+        const transRes = await translateFeedbackComment(comment.trim());
+        translations = transRes.translations;
+        detectedLanguage = transRes.detectedLanguage;
+      } catch (tErr) {
+        console.warn("Translation failed during submitFeedback:", tErr.message);
+        translations = { en: comment.trim() };
+      }
+    }
+
     // Upsert: update if exists, create if not
     const feedback = await Feedback.findOneAndUpdate(
       { user: userId, module: moduleId },
@@ -65,6 +79,8 @@ export const submitFeedback = async (req, res) => {
         module: moduleId,
         rating: numRating,
         comment: comment ? comment.trim() : "",
+        translations,
+        detectedLanguage,
         status: "pending",
       },
       { upsert: true, new: true, runValidators: true }
@@ -126,6 +142,7 @@ export const getModuleFeedback = async (req, res) => {
       _id: f._id,
       rating: f.rating,
       comment: f.comment,
+      translations: f.translations,
       createdAt: f.createdAt,
     }));
 

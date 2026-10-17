@@ -57,7 +57,7 @@ const DashboardHeader = () => {
           style={{ display: "flex", alignItems: "center", gap: 6, textDecoration: "none", color: "inherit", fontWeight: 600, fontSize: 14 }}
         >
           <MessageSquare size={16} />
-          <span>Feedback</span>
+          <span>{t("feedback")}</span>
         </a>
         {user?.role === "admin" && (
           <NavLink to="/admin" style={{ color: "#e67e22", fontWeight: 700 }}>

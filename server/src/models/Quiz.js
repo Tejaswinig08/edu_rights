@@ -14,6 +14,10 @@ const quizSchema = new mongoose.Schema({
       explanation: String,
     },
   ],
+  translations: {
+    type: Object,
+    default: {},
+  },
 });
 
 const Quiz = mongoose.model("Quiz", quizSchema);

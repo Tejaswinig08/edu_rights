@@ -1,6 +1,37 @@
 import Module from "../models/Module.js";
 import Progress from "../models/Progress.js";
 
+// Helper to extract clean YouTube video ID
+const extractYouTubeId = (url) => {
+  if (!url || typeof url !== "string") return null;
+  const trimmed = url.trim();
+  if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
+  const patterns = [
+    /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([a-zA-Z0-9_-]{11})/i,
+    /^[a-zA-Z0-9_-]{11}$/,
+  ];
+  for (const pattern of patterns) {
+    const match = trimmed.match(pattern);
+    if (match && match[1]) return match[1];
+  }
+  return null;
+};
+
+// Sanitize video data for regular users: expose videoId for player, hide raw URL
+const sanitizeVideos = (videoUrls) => {
+  if (!Array.isArray(videoUrls)) return [];
+  return videoUrls
+    .map((v) => {
+      const vid = extractYouTubeId(v?.url || v?.videoId);
+      return {
+        _id: v?._id,
+        title: v?.title || "Module Video",
+        videoId: vid,
+      };
+    })
+    .filter((v) => Boolean(v.videoId));
+};
+
 // ==========================================
 // Get all modules
 // ==========================================
@@ -17,6 +48,7 @@ export const getModules = async (req, res) => {
 
     const modulesWithProgress = modules.map((mod) => ({
       ...mod,
+      videoUrls: sanitizeVideos(mod.videoUrls),
       userProgress: progressMap[mod._id.toString()]
         ? {
             completed: progressMap[mod._id.toString()].completed,
@@ -49,9 +81,14 @@ export const getModuleBySlug = async (req, res) => {
       moduleId: module._id,
     }).lean();
 
+    const sanitizedModule = {
+      ...module,
+      videoUrls: sanitizeVideos(module.videoUrls),
+    };
+
     return res.status(200).json({
       success: true,
-      module,
+      module: sanitizedModule,
       progress: progress || null,
     });
   } catch (error) {

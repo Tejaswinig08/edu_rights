@@ -14,7 +14,7 @@ import { CheckCircle, MessageSquarePlus, Star } from "lucide-react";
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const { t, formatNumber, getArticleList } = useLanguage();
+  const { t, formatNumber, getArticleList, getModuleTitle, getFeedbackComment } = useLanguage();
   const location = useLocation();
   const [stats, setStats] = useState({ points: 0, level: 1, badges: [], completedCount: 0, totalModules: 0 });
   const [modules, setModules] = useState([]);
@@ -120,7 +120,7 @@ const Dashboard = () => {
         ===================================================== */}
         <section id="dashboard-feedback" className="dashboard-feedback-section">
           <div className="section-heading">
-            <h2>Module Feedback</h2>
+            <h2>{t("moduleFeedback")}</h2>
             {completedModules.length > 0 && (
               <button
                 type="button"
@@ -131,7 +131,7 @@ const Dashboard = () => {
                 }}
               >
                 <MessageSquarePlus size={16} />
-                <span>Give Feedback</span>
+                <span>{t("giveFeedback")}</span>
               </button>
             )}
           </div>
@@ -142,9 +142,9 @@ const Dashboard = () => {
                 <MessageSquarePlus size={28} color="#095957" />
               </div>
               <div className="feedback-empty-text">
-                <h3>Feedback Unlocks Upon Completing Quests!</h3>
+                <h3>{t("feedbackUnlockTitle")}</h3>
                 <p>
-                  Finish any of your learning quests with a score of 70% or more on the quiz to unlock 1–5 star ratings and share your review!
+                  {t("feedbackUnlockDesc")}
                 </p>
               </div>
             </div>
@@ -152,7 +152,7 @@ const Dashboard = () => {
             <div className="feedback-cards-grid">
               {completedModules.map((mod) => {
                 const fb = feedbackMap[mod._id?.toString()];
-                const modTitle = typeof mod.title === "object" ? mod.title.en || mod.title.mr || "" : mod.title;
+                const modTitle = getModuleTitle(mod);
                 return (
                   <div key={mod._id} className="feedback-item-card">
                     <div className="feedback-item-header">
@@ -162,17 +162,17 @@ const Dashboard = () => {
                         <div className="feedback-item-status">
                           {fb ? (
                             <span className="feedback-rated-tag">
-                              Rated {fb.rating}/5
+                              {t("feedbackRated", { rating: formatNumber(fb.rating) })}
                             </span>
                           ) : (
-                            <span className="feedback-pending-tag">Not reviewed yet</span>
+                            <span className="feedback-pending-tag">{t("notReviewedYet")}</span>
                           )}
                         </div>
                       </div>
                     </div>
 
                     {fb?.comment && (
-                      <p className="feedback-item-comment">"{fb.comment}"</p>
+                      <p className="feedback-item-comment">"{getFeedbackComment(fb)}"</p>
                     )}
 
                     <button
@@ -183,7 +183,7 @@ const Dashboard = () => {
                         setFeedbackModalOpen(true);
                       }}
                     >
-                      {fb ? "Edit Feedback" : "Leave Feedback"}
+                      {fb ? t("editFeedback") : t("leaveFeedback")}
                     </button>
                   </div>
                 );

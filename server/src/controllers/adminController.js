@@ -5,6 +5,10 @@ import Progress from "../models/Progress.js";
 import KnowledgeArticle from "../models/KnowledgeArticle.js";
 import Feedback from "../models/Feedback.js";
 import mongoose from "mongoose";
+import {
+  translateModuleData,
+  translateQuizData,
+} from "../services/translationService.js";
 
 // ==========================================
 // DASHBOARD STATS
@@ -197,6 +201,44 @@ export const updateUserRole = async (req, res) => {
 // MODULES
 // ==========================================
 
+// Helper to extract clean YouTube video ID
+const extractYouTubeId = (url) => {
+  if (!url || typeof url !== "string") return null;
+  const trimmed = url.trim();
+  if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
+  const patterns = [
+    /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([a-zA-Z0-9_-]{11})/i,
+    /^[a-zA-Z0-9_-]{11}$/,
+  ];
+  for (const pattern of patterns) {
+    const match = trimmed.match(pattern);
+    if (match && match[1]) return match[1];
+  }
+  return null;
+};
+
+// Validate and sanitize video list for storage
+const validateAndCleanVideos = (videoList) => {
+  if (!videoList || !Array.isArray(videoList)) return [];
+  const cleaned = [];
+  for (let i = 0; i < videoList.length; i++) {
+    const v = videoList[i];
+    if (!v) continue;
+    const rawUrl = typeof v === "string" ? v : v.url;
+    if (!rawUrl || !rawUrl.trim()) continue;
+    const videoId = extractYouTubeId(rawUrl);
+    if (!videoId) {
+      throw new Error(`Video #${i + 1} has an invalid YouTube URL: "${rawUrl}". Supported formats: youtu.be, youtube.com/watch?v=..., or youtube.com/embed/...`);
+    }
+    cleaned.push({
+      _id: v._id || undefined,
+      title: (v.title && typeof v.title === "string" && v.title.trim()) || "Module Video",
+      url: `https://www.youtube.com/watch?v=${videoId}`,
+    });
+  }
+  return cleaned;
+};
+
 // GET /api/admin/modules
 export const adminGetModules = async (req, res) => {
   try {
@@ -217,9 +259,29 @@ export const adminCreateModule = async (req, res) => {
       return res.status(400).json({ success: false, message: "Title and slug are required." });
     }
 
-    const existing = await Module.findOne({ slug });
+    const existing = await Module.findOne({ slug: slug.trim().toLowerCase() });
     if (existing) {
       return res.status(409).json({ success: false, message: "A module with this slug already exists." });
+    }
+
+    let cleanedVideos = [];
+    if (videoUrls) {
+      try {
+        cleanedVideos = validateAndCleanVideos(videoUrls);
+      } catch (validationErr) {
+        return res.status(400).json({ success: false, message: validationErr.message });
+      }
+    }
+
+    let translations = {};
+    try {
+      translations = await translateModuleData({
+        title: title.trim(),
+        description: description?.trim() || "",
+        content: content || "",
+      });
+    } catch (tErr) {
+      console.warn("Translation failed during adminCreateModule:", tErr.message);
     }
 
     const module = await Module.create({
@@ -231,7 +293,8 @@ export const adminCreateModule = async (req, res) => {
       order: order || 0,
       pointsReward: pointsReward || 50,
       requiredLevel: requiredLevel || 1,
-      videoUrls: videoUrls || [],
+      videoUrls: cleanedVideos,
+      translations,
     });
 
     return res.status(201).json({ success: true, module });
@@ -251,9 +314,45 @@ export const adminUpdateModule = async (req, res) => {
 
     const { title, slug, description, icon, content, order, pointsReward, requiredLevel, videoUrls } = req.body;
 
+    const updateData = {};
+    if (title !== undefined) updateData.title = title.trim();
+    if (slug !== undefined) updateData.slug = slug.trim().toLowerCase();
+    if (description !== undefined) updateData.description = description?.trim();
+    if (icon !== undefined) updateData.icon = icon;
+    if (content !== undefined) updateData.content = content;
+    if (order !== undefined) updateData.order = order;
+    if (pointsReward !== undefined) updateData.pointsReward = pointsReward;
+    if (requiredLevel !== undefined) updateData.requiredLevel = requiredLevel;
+
+    // Only update videoUrls if explicitly passed; validate any provided URLs
+    if (videoUrls !== undefined) {
+      try {
+        updateData.videoUrls = validateAndCleanVideos(videoUrls);
+      } catch (validationErr) {
+        return res.status(400).json({ success: false, message: validationErr.message });
+      }
+    }
+
+    // If title, description, or content changed, regenerate translations
+    if (title !== undefined || description !== undefined || content !== undefined) {
+      const existingModule = await Module.findById(id);
+      if (existingModule) {
+        try {
+          const freshTranslations = await translateModuleData({
+            title: title !== undefined ? title.trim() : existingModule.title,
+            description: description !== undefined ? description?.trim() : existingModule.description,
+            content: content !== undefined ? content : existingModule.content,
+          });
+          updateData.translations = freshTranslations;
+        } catch (tErr) {
+          console.warn("Translation failed during adminUpdateModule:", tErr.message);
+        }
+      }
+    }
+
     const module = await Module.findByIdAndUpdate(
       id,
-      { title, slug, description, icon, content, order, pointsReward, requiredLevel, videoUrls },
+      updateData,
       { new: true, runValidators: true }
     );
 
@@ -325,8 +424,41 @@ export const adminCreateQuiz = async (req, res) => {
       return res.status(409).json({ success: false, message: "A quiz for this module already exists. Use PUT to update." });
     }
 
-    const quiz = await Quiz.create({ moduleId, questions });
-    return res.status(201).json({ success: true, quiz });
+    const sanitizedQuestions = [];
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
+      if (!q || typeof q.question !== "string" || !q.question.trim()) {
+        return res.status(400).json({ success: false, message: `Question #${i + 1} must have question text.` });
+      }
+      if (!Array.isArray(q.options) || q.options.length < 2) {
+        return res.status(400).json({ success: false, message: `Question #${i + 1} must have at least 2 options.` });
+      }
+      const cleanOptions = q.options.map((opt) => String(opt || "").trim());
+      if (cleanOptions.some((opt) => !opt)) {
+        return res.status(400).json({ success: false, message: `Question #${i + 1} contains empty option text.` });
+      }
+      const cIndex = Number(q.correctIndex ?? 0);
+      if (isNaN(cIndex) || cIndex < 0 || cIndex >= cleanOptions.length) {
+        return res.status(400).json({ success: false, message: `Question #${i + 1} has an invalid correct answer selection.` });
+      }
+      sanitizedQuestions.push({
+        question: q.question.trim(),
+        options: cleanOptions,
+        correctIndex: cIndex,
+        explanation: (q.explanation && typeof q.explanation === "string" && q.explanation.trim()) || "",
+      });
+    }
+
+    let translations = {};
+    try {
+      translations = await translateQuizData(sanitizedQuestions);
+    } catch (tErr) {
+      console.warn("Translation failed during adminCreateQuiz:", tErr.message);
+    }
+
+    const quiz = await Quiz.create({ moduleId, questions: sanitizedQuestions, translations });
+    const populated = await Quiz.findById(quiz._id).populate("moduleId", "title slug");
+    return res.status(201).json({ success: true, quiz: populated });
   } catch (error) {
     console.error("Error in adminCreateQuiz:", error);
     return res.status(500).json({ success: false, message: "Server error." });
@@ -346,7 +478,45 @@ export const adminUpdateQuiz = async (req, res) => {
       return res.status(400).json({ success: false, message: "At least one question is required." });
     }
 
-    const quiz = await Quiz.findByIdAndUpdate(id, { questions }, { new: true });
+    const sanitizedQuestions = [];
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
+      if (!q || typeof q.question !== "string" || !q.question.trim()) {
+        return res.status(400).json({ success: false, message: `Question #${i + 1} must have question text.` });
+      }
+      if (!Array.isArray(q.options) || q.options.length < 2) {
+        return res.status(400).json({ success: false, message: `Question #${i + 1} must have at least 2 options.` });
+      }
+      const cleanOptions = q.options.map((opt) => String(opt || "").trim());
+      if (cleanOptions.some((opt) => !opt)) {
+        return res.status(400).json({ success: false, message: `Question #${i + 1} contains empty option text.` });
+      }
+      const cIndex = Number(q.correctIndex ?? 0);
+      if (isNaN(cIndex) || cIndex < 0 || cIndex >= cleanOptions.length) {
+        return res.status(400).json({ success: false, message: `Question #${i + 1} has an invalid correct answer selection.` });
+      }
+      sanitizedQuestions.push({
+        _id: q._id || undefined,
+        question: q.question.trim(),
+        options: cleanOptions,
+        correctIndex: cIndex,
+        explanation: (q.explanation && typeof q.explanation === "string" && q.explanation.trim()) || "",
+      });
+    }
+
+    let translations = {};
+    try {
+      translations = await translateQuizData(sanitizedQuestions);
+    } catch (tErr) {
+      console.warn("Translation failed during adminUpdateQuiz:", tErr.message);
+    }
+
+    const quiz = await Quiz.findByIdAndUpdate(
+      id,
+      { questions: sanitizedQuestions, translations },
+      { new: true, runValidators: true }
+    ).populate("moduleId", "title slug");
+
     if (!quiz) return res.status(404).json({ success: false, message: "Quiz not found." });
 
     return res.status(200).json({ success: true, quiz });

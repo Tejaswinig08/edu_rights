@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Star, X, CheckCircle, MessageSquare } from "lucide-react";
 import api from "../api/axios";
 import toast from "react-hot-toast";
+import { useLanguage } from "../context/LanguageContext";
 
 const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedbackSubmitted }) => {
+  const { t, getModuleTitle } = useLanguage();
   const [selectedModule, setSelectedModule] = useState(module || null);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -100,7 +102,7 @@ const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedb
 
   const getTitle = (m) => {
     if (!m) return "";
-    return typeof m.title === "object" ? m.title.en || m.title.mr || "" : m.title;
+    return getModuleTitle(m) || (typeof m.title === "object" ? m.title.en || m.title.mr || "" : m.title);
   };
 
   const hasCompletedModules = completedModules.length > 0 || selectedModule;

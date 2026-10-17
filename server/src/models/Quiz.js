@@ -14,6 +14,13 @@ const quizSchema = new mongoose.Schema({
       explanation: String,
     },
   ],
+<<<<<<< HEAD
+=======
+  translations: {
+    type: Object,
+    default: {},
+  },
+>>>>>>> origin/feature/tejaswini-final
 });
 
 const Quiz = mongoose.model("Quiz", quizSchema);

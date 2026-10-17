@@ -25,7 +25,7 @@ const ModuleCard = ({ module, userLevel, onOpenFeedback }) => {
       onClick={handleClick}
     >
       <div className="module-card-header">
-        <span className="module-card-icon">{icon || "📚"}</span>
+        {icon ? <span className="module-card-icon">{icon}</span> : null}
         <div className="module-card-status">
           {isLocked && <span className="status-badge locked-badge">{t("badgeLocked")}</span>}
           {isCompleted && <span className="status-badge completed-badge">{t("badgeCompleted")}</span>}
@@ -57,7 +57,7 @@ const ModuleCard = ({ module, userLevel, onOpenFeedback }) => {
                 }
               }}
             >
-              ⭐ Feedback
+              {t("feedback")}
             </button>
           </div>
         )}

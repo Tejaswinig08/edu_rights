@@ -5,6 +5,7 @@ import {
   useParams,
 } from "react-router-dom";
 
+import { Check } from "lucide-react";
 import toast from "react-hot-toast";
 
 import AuthShell from "../components/AuthShell";
@@ -88,7 +89,7 @@ function VerifyEmail() {
           >
 
             {status === "success"
-              ? "✓"
+              ? <Check size={28} />
               : "!"}
 
           </div>

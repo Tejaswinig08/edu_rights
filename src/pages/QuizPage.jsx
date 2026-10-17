@@ -81,7 +81,7 @@ const QuizPage = () => {
             <div className="quiz-new-badge">
               {(results.newBadges || [results.newBadge]).filter(Boolean).map((badge, i) => (
                 <div key={i} className="badge-unlock-item">
-                  {t("newBadgeUnlocked", { icon: badge.icon || "🏆", name: getBadgeName(badge.name) })}
+                  {t("newBadgeUnlocked", { icon: badge.icon || "", name: getBadgeName(badge.name) })}
                 </div>
               ))}
             </div>
@@ -114,7 +114,7 @@ const QuizPage = () => {
                     <p>{t("correctAnswer")} {displayOptions[r.correctIndex]}</p>
                   )}
                   {displayExplanation && (
-                    <p className="explanation">💡 {displayExplanation}</p>
+                    <p className="explanation">{displayExplanation}</p>
                   )}
                 </div>
               );

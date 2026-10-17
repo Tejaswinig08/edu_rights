@@ -4,7 +4,11 @@ import {
   signup,
   login,
   getMe,
+<<<<<<< HEAD
   updateProfile,
+=======
+  updatePreferredLanguage,
+>>>>>>> origin/feature/tejaswini-final
 } from "../controllers/authController.js";
 
 import protect from "../middleware/authMiddleware.js";
@@ -38,6 +42,7 @@ router.get(
 );
 
 router.put(
+<<<<<<< HEAD
   "/profile",
   protect,
   updateProfile
@@ -47,6 +52,11 @@ router.patch(
   "/profile",
   protect,
   updateProfile
+=======
+  "/language",
+  protect,
+  updatePreferredLanguage
+>>>>>>> origin/feature/tejaswini-final
 );
 
 

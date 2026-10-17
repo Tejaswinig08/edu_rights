@@ -27,7 +27,7 @@ const user = await User.findOneAndUpdate(
 if (!user) {
   console.error(`No user found with email: ${email}`);
 } else {
-  console.log(`✅ User "${user.name}" (${user.email}) is now an ADMIN.`);
+  console.log(`User "${user.name}" (${user.email}) is now an ADMIN.`);
 }
 
 process.exit(0);

@@ -153,21 +153,53 @@ const AdminFeedback = () => {
             <p><strong>Module:</strong> {getModuleTitle(viewFeedback.module)}</p>
             <p><strong>Rating:</strong> <span style={{ color: "#f39c12", fontSize: 18 }}>{stars(viewFeedback.rating)}</span> {viewFeedback.rating}/5</p>
             <p><strong>Status:</strong> <span className={`badge ${viewFeedback.status}`}>{viewFeedback.status}</span></p>
+<<<<<<< HEAD
             <p><strong>Date:</strong> {fmt(viewFeedback.createdAt)}</p>
             <div style={{ marginTop: 12, padding: 12, background: "#f8f9fa", borderRadius: 8, fontSize: 14 }}>
               {viewFeedback.comment || <em style={{ color: "#7f8c8d" }}>No comment provided.</em>}
             </div>
+=======
+            <div style={{ marginTop: 12, padding: 12, background: "#f8f9fa", borderRadius: 8, fontSize: 14 }}>
+              <strong>Original Comment:</strong>
+              <div style={{ marginTop: 4, whiteSpace: "pre-wrap" }}>
+                {viewFeedback.comment || <em style={{ color: "#7f8c8d" }}>No comment provided.</em>}
+              </div>
+              {viewFeedback.detectedLanguage && (
+                <div style={{ fontSize: 12, color: "#7f8c8d", marginTop: 6 }}>
+                  Detected language: <code>{viewFeedback.detectedLanguage.toUpperCase()}</code>
+                </div>
+              )}
+            </div>
+
+            {viewFeedback.translations && Object.keys(viewFeedback.translations).length > 0 && (
+              <div style={{ marginTop: 12, padding: 12, background: "#f0f7ff", borderRadius: 8, fontSize: 13, border: "1px solid #d0e4ff" }}>
+                <strong style={{ color: "#1e3a8a", display: "block", marginBottom: 6 }}>Automated Translations:</strong>
+                {Object.entries(viewFeedback.translations).map(([lang, text]) => {
+                  if (!text || text === viewFeedback.comment) return null;
+                  const langLabels = { hi: "Hindi (हिन्दी)", mr: "Marathi (मराठी)", es: "Spanish (Español)", en: "English" };
+                  return (
+                    <div key={lang} style={{ marginBottom: 6, lineHeight: 1.4 }}>
+                      <span style={{ fontWeight: 600, color: "#2563eb" }}>{langLabels[lang] || lang}:</span> {text}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+>>>>>>> origin/feature/tejaswini-final
             <div className="admin-modal-actions">
               {viewFeedback.status !== "reviewed" && (
                 <button className="btn btn-primary" onClick={() => handleStatusChange(viewFeedback._id, "reviewed")}>
                   Mark Reviewed
                 </button>
               )}
+<<<<<<< HEAD
               {viewFeedback.status !== "resolved" && (
                 <button className="btn btn-success" onClick={() => handleStatusChange(viewFeedback._id, "resolved")}>
                   Mark Resolved
                 </button>
               )}
+=======
+>>>>>>> origin/feature/tejaswini-final
               <button className="btn btn-danger" onClick={() => setDeleteConfirm(viewFeedback)}>Delete</button>
               <button className="btn btn-ghost" onClick={() => setViewFeedback(null)}>Close</button>
             </div>

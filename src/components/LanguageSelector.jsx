@@ -5,10 +5,9 @@ const LanguageSelector = () => {
   const { language, setLanguage } = useLanguage();
 
   const handleSelect = (langCode) => {
-    if (langCode === "en" || langCode === "hi" || langCode === "mr") {
+    if (langCode === "en" || langCode === "hi" || langCode === "mr" || langCode === "es") {
       setLanguage(langCode);
     }
-    // Spanish ('es') is present visually as a placeholder without state change
   };
 
   return (
@@ -45,7 +44,7 @@ const LanguageSelector = () => {
 
       <button
         type="button"
-        className="lang-btn"
+        className={`lang-btn ${language === "es" ? "active" : ""}`}
         onClick={() => handleSelect("es")}
       >
         Español

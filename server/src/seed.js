@@ -20,17 +20,29 @@ const connectDB = async () => {
 // MODULE CONTENT
 // ============================================================
 
+<<<<<<< HEAD
 const mod1Content = `🛡️ RIGHT TO PROTECTION – सुरक्षा का अधिकार
+=======
+const mod1Content = `RIGHT TO PROTECTION – सुरक्षा का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Every child has the right to be safe from violence, abuse, exploitation, trafficking, harmful work and other forms of mistreatment. Children should be able to grow up in a safe environment where they can learn, play and develop without fear.
 
+<<<<<<< HEAD
 🌟 Story: Aarav Speaks Up
+=======
+Story: Aarav Speaks Up
+>>>>>>> origin/feature/tejaswini-final
 Aarav was walking home from school when he noticed a young boy working at a roadside shop every day. The boy looked tired and was missing school.
 Aarav felt that something was not right. Instead of making fun of the boy or ignoring the situation, Aarav told his teacher about what he had seen.
 The teacher explained that children have the right to protection and education. Adults and authorities have a responsibility to protect children from abuse and exploitation.
 
+<<<<<<< HEAD
 🛡️ What is the solution?
+=======
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 If a child feels unsafe or sees another child being harmed:
 - Move to a safe place if possible.
 - Tell a trusted adult such as a parent, teacher or guardian.
@@ -38,30 +50,49 @@ If a child feels unsafe or sees another child being harmed:
 - Do not try to handle a dangerous situation alone.
 - Ask a responsible adult or appropriate authority for help.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Every child deserves to feel safe. Speaking to a trusted adult when something feels wrong is a brave and responsible step.
 
 ⚖️ Important Laws
+=======
+Lesson Learnt
+Every child deserves to feel safe. Speaking to a trusted adult when something feels wrong is a brave and responsible step.
+
+Important Laws
+>>>>>>> origin/feature/tejaswini-final
 - Protection of Children from Sexual Offences Act, 2012 (POCSO Act) – protects children from sexual assault, sexual harassment and pornography.
 - Juvenile Justice (Care and Protection of Children) Act, 2015 – provides a framework for the care, protection, development and rehabilitation of children.
 - Child and Adolescent Labour (Prohibition and Regulation) Act, 1986 – prohibits employment of children and adolescents from hazardous occupations.
 - Prohibition of Child Marriage Act, 2006 – provides for prohibition of child marriages.
 
+<<<<<<< HEAD
 🪪 RIGHT TO IDENTITY – पहचान का अधिकार
+=======
+RIGHT TO IDENTITY – पहचान का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Every child should have an identity. Important identity information can include the child's name and official record of birth. Birth registration creates an official record of a child's birth.
 
+<<<<<<< HEAD
 🌟 Story: Welcome, Aarohi!
 When Aarohi was born, her parents made sure that her birth was officially registered. As she grew older, her birth record helped provide an official record of important information about when and where she was born.
 
 🪪 What is the solution?
+=======
+Story: Welcome, Aarohi!
+When Aarohi was born, her parents made sure that her birth was officially registered. As she grew older, her birth record helped provide an official record of important information about when and where she was born.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Families should:
 - Register a child's birth.
 - Keep important documents safe.
 - Correct mistakes in official records through the proper process.
 - Avoid sharing personal documents unnecessarily.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Having an official identity record helps children access services and prove important details about themselves.
 
@@ -69,14 +100,30 @@ Having an official identity record helps children access services and prove impo
 - The Registration of Births and Deaths Act, 1969 provides the legal framework for registration of births and deaths.`;
 
 const mod2Content = `❤️ RIGHT TO SURVIVAL – जीवन का अधिकार
+=======
+Lesson Learnt
+Having an official identity record helps children access services and prove important details about themselves.
+
+Important Law
+- The Registration of Births and Deaths Act, 1969 provides the legal framework for registration of births and deaths.`;
+
+const mod2Content = `RIGHT TO SURVIVAL – जीवन का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Every child needs the basic things required to survive and grow, such as nutritious food, clean water, healthcare, shelter, care and protection. Survival is not only about staying alive. Children also need the conditions that allow them to grow in a healthy and safe environment.
 
+<<<<<<< HEAD
 🌟 Story: Meera Gets Help
 Meera suddenly became very sick and had a high fever. Instead of ignoring the problem, her parents took her to a healthcare centre. The doctor checked Meera and gave her the treatment she needed. Her parents also made sure that she had nutritious food, clean water and enough rest.
 
 🏥 What is the solution?
+=======
+Story: Meera Gets Help
+Meera suddenly became very sick and had a high fever. Instead of ignoring the problem, her parents took her to a healthcare centre. The doctor checked Meera and gave her the treatment she needed. Her parents also made sure that she had nutritious food, clean water and enough rest.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children should have access to:
 - Healthcare and medical attention when needed.
 - Nutritious food.
@@ -84,23 +131,41 @@ Children should have access to:
 - A safe living environment.
 - Care and protection from adults.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Every child needs care, health, food, water and safety to survive and grow.
 
 ⚖️ Legal and Government Support
+=======
+Lesson Learnt
+Every child needs care, health, food, water and safety to survive and grow.
+
+Legal and Government Support
+>>>>>>> origin/feature/tejaswini-final
 - Article 21 of the Constitution of India protects life and personal liberty.
 - National Food Security Act, 2013 provides a legal framework related to food and nutritional security.
 - Government health programmes such as the National Health Mission (NHM) support healthcare services.
 
+<<<<<<< HEAD
 🏥 RIGHT TO HEALTH – स्वास्थ्य का अधिकार
+=======
+RIGHT TO HEALTH – स्वास्थ्य का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Children need healthcare to stay healthy, prevent illness and receive treatment when they become sick. Healthcare can include medical treatment, vaccination, regular health check-ups, mental health support, medicines and healthy habits.
 
+<<<<<<< HEAD
 🌟 Story: Anaya Takes Care of Her Health
 Anaya often felt tired and did not understand why. Her parents took her to a healthcare professional. The doctor checked her and advised her to eat nutritious food, drink enough water, sleep properly and stay physically active. Anaya learned that taking care of health is an important part of growing up.
 
 🏥 What is the solution?
+=======
+Story: Anaya Takes Care of Her Health
+Anaya often felt tired and did not understand why. Her parents took her to a healthcare professional. The doctor checked her and advised her to eat nutritious food, drink enough water, sleep properly and stay physically active. Anaya learned that taking care of health is an important part of growing up.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children should:
 - Tell a trusted adult when they are unwell.
 - Visit a healthcare professional when necessary.
@@ -108,23 +173,41 @@ Children should:
 - Get enough sleep and stay physically active.
 - Take care of their mental well-being.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Good health helps children learn, play and grow. Asking for healthcare when needed is important.
 
 ⚖️ Government Support
+=======
+Lesson Learnt
+Good health helps children learn, play and grow. Asking for healthcare when needed is important.
+
+Government Support
+>>>>>>> origin/feature/tejaswini-final
 - National Health Mission (NHM) supports health services in India.
 - Ayushman Bharat is a major government health initiative.
 - Vaccination programmes support prevention of diseases.
 
+<<<<<<< HEAD
 🍎 RIGHT TO FOOD AND NUTRITION – भोजन और पोषण का अधिकार
+=======
+RIGHT TO FOOD AND NUTRITION – भोजन और पोषण का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Children need enough nutritious food to grow, stay healthy and have energy for learning and playing. A healthy diet can include different kinds of foods such as fruits, vegetables, grains, pulses, milk or other suitable sources of nutrients.
 
+<<<<<<< HEAD
 🌟 Story: The Healthy Lunch Box
 Riya used to bring only packaged snacks to school. Her teacher explained that children need different nutrients for growth and energy. Riya and her family started including a variety of nutritious foods in her meals. Soon, Riya understood that food is not just about filling your stomach—it is about giving your body the nutrients it needs.
 
 🍎 What is the solution?
+=======
+Story: The Healthy Lunch Box
+Riya used to bring only packaged snacks to school. Her teacher explained that children need different nutrients for growth and energy. Riya and her family started including a variety of nutritious foods in her meals. Soon, Riya understood that food is not just about filling your stomach—it is about giving your body the nutrients it needs.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children should:
 - Eat a variety of nutritious foods.
 - Drink safe water.
@@ -132,6 +215,7 @@ Children should:
 - Eat regular meals.
 - Tell an adult if they regularly do not have enough food.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Good nutrition gives children energy to learn, play and grow.
 
@@ -140,14 +224,31 @@ Good nutrition gives children energy to learn, play and grow.
 - PM POSHAN supports nutritional meals for eligible schoolchildren through the school meal programme.
 
 💧 RIGHT TO CLEAN WATER AND SANITATION – स्वच्छ पानी और स्वच्छता का अधिकार
+=======
+Lesson Learnt
+Good nutrition gives children energy to learn, play and grow.
+
+Legal and Government Support
+- National Food Security Act, 2013 provides a legal framework for food and nutritional security.
+- PM POSHAN supports nutritional meals for eligible schoolchildren through the school meal programme.
+
+RIGHT TO CLEAN WATER AND SANITATION – स्वच्छ पानी और स्वच्छता का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Children need safe drinking water, clean toilets and hygienic surroundings to stay healthy. Good sanitation and hygiene can help prevent the spread of many diseases.
 
+<<<<<<< HEAD
 🌟 Story: The School Water Problem
 Students at a school noticed that the drinking-water area was dirty. Instead of ignoring the problem, they told their teacher. The teacher informed the school administration. The area was cleaned and students were reminded to wash their hands regularly.
 
 💧 What is the solution?
+=======
+Story: The School Water Problem
+Students at a school noticed that the drinking-water area was dirty. Instead of ignoring the problem, they told their teacher. The teacher informed the school administration. The area was cleaned and students were reminded to wash their hands regularly.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children can:
 - Drink safe water.
 - Wash their hands regularly.
@@ -155,6 +256,7 @@ Children can:
 - Keep surroundings clean.
 - Tell an adult when water or sanitation facilities are unsafe.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Clean water, sanitation and good hygiene help protect our health.
 
@@ -163,14 +265,31 @@ Clean water, sanitation and good hygiene help protect our health.
 - Swachh Bharat Mission focuses on sanitation and cleanliness.`;
 
 const mod3Content = `🌱 RIGHT TO DEVELOPMENT – विकास का अधिकार
+=======
+Lesson Learnt
+Clean water, sanitation and good hygiene help protect our health.
+
+Government Support
+- Jal Jeevan Mission focuses on improving access to safe and adequate drinking water.
+- Swachh Bharat Mission focuses on sanitation and cleanliness.`;
+
+const mod3Content = `RIGHT TO DEVELOPMENT – विकास का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Growing up is not only about becoming taller. Children need opportunities to develop their knowledge, physical abilities, creativity, emotional skills, social skills, problem-solving abilities and confidence. Education, play, family support and opportunities to learn all contribute to a child's development.
 
+<<<<<<< HEAD
 🌟 Story: Rohan Builds His Future
 Rohan loved drawing but thought that only studying textbooks was important. His teacher encouraged him to participate in drawing competitions, sports and science activities. Rohan slowly became more confident. He learned how to work with others, solve problems and express his ideas. He understood that development means growing in many different ways—not only getting good marks.
 
 🌱 What is the solution?
+=======
+Story: Rohan Builds His Future
+Rohan loved drawing but thought that only studying textbooks was important. His teacher encouraged him to participate in drawing competitions, sports and science activities. Rohan slowly became more confident. He learned how to work with others, solve problems and express his ideas. He understood that development means growing in many different ways—not only getting good marks.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children should get opportunities to:
 - Learn new things.
 - Play and exercise.
@@ -180,23 +299,41 @@ Children should get opportunities to:
 - Solve problems.
 - Discover their interests.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Every child should get opportunities to learn, play, create, communicate and develop their full potential.
 
 ⚖️ Legal and Policy Support
+=======
+Lesson Learnt
+Every child should get opportunities to learn, play, create, communicate and develop their full potential.
+
+Legal and Policy Support
+>>>>>>> origin/feature/tejaswini-final
 - Right of Children to Free and Compulsory Education Act, 2009 supports education for children aged 6–14.
 - Integrated Child Development Services (ICDS) supports early childhood care and development.
 - National Education Policy (NEP) 2020 promotes holistic development and learning.
 
+<<<<<<< HEAD
 📚 RIGHT TO EDUCATION – शिक्षा का अधिकार
+=======
+RIGHT TO EDUCATION – शिक्षा का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Education gives children the opportunity to learn, develop skills, understand the world and prepare for their future.
 
+<<<<<<< HEAD
 🌟 Story: Kabir Goes Back to School
 Kabir wanted to attend school but his family was worried about the cost of elementary education. Kabir's teacher explained that under India's Right to Education framework, children aged 6–14 have a right to free and compulsory education. Kabir's family approached the school and the appropriate authorities to understand the available provisions. Kabir was happy to return to learning.
 
 📚 What is the solution?
+=======
+Story: Kabir Goes Back to School
+Kabir wanted to attend school but his family was worried about the cost of elementary education. Kabir's teacher explained that under India's Right to Education framework, children aged 6–14 have a right to free and compulsory education. Kabir's family approached the school and the appropriate authorities to understand the available provisions. Kabir was happy to return to learning.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children should:
 - Attend school regularly.
 - Have a safe learning environment.
@@ -205,6 +342,7 @@ Children should:
 - Seek help when they face difficulties.
 - Be treated fairly at school.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Education helps children learn, grow, build skills and create opportunities for their future.
 
@@ -213,14 +351,31 @@ Education helps children learn, grow, build skills and create opportunities for 
 - The RTE framework also contains provisions relating to schools, teachers, admission and children's rights in education.`;
 
 const mod4Content = `🗣️ RIGHT TO PARTICIPATION – भागीदारी का अधिकार
+=======
+Lesson Learnt
+Education helps children learn, grow, build skills and create opportunities for their future.
+
+Important Law
+- The Right of Children to Free and Compulsory Education Act, 2009 (RTE Act) provides for free and compulsory education for children aged 6–14 years.
+- The RTE framework also contains provisions relating to schools, teachers, admission and children's rights in education.`;
+
+const mod4Content = `RIGHT TO PARTICIPATION – भागीदारी का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Children have the right to express their views on matters that affect them, according to their age and maturity. Their opinions should be listened to and taken seriously.
 
+<<<<<<< HEAD
 🌟 Story: The New School Club
 A school wanted to start a new after-school activity. Instead of deciding everything without the students, the teacher asked them what they would like. Some students wanted sports. Others wanted art, music or a science club. The teacher listened to everyone's suggestions. The school then decided to create activities based on the students' ideas.
 
 🗣️ What is the solution?
+=======
+Story: The New School Club
+A school wanted to start a new after-school activity. Instead of deciding everything without the students, the teacher asked them what they would like. Some students wanted sports. Others wanted art, music or a science club. The teacher listened to everyone's suggestions. The school then decided to create activities based on the students' ideas.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children can participate by:
 - Sharing their opinions respectfully.
 - Listening to other people's opinions.
@@ -230,6 +385,7 @@ Children can participate by:
 - Respecting different viewpoints.
 Participation does not mean that children always get exactly what they ask for. It means their views should have an opportunity to be heard and considered.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Your voice matters. Listen respectfully, express yourself clearly and give others a chance to speak too.
 
@@ -238,14 +394,31 @@ Your voice matters. Listen respectfully, express yourself clearly and give other
 - Article 19(1)(a) of the Constitution of India protects freedom of speech and expression.
 
 🎤 RIGHT TO FREEDOM OF EXPRESSION – अभिव्यक्ति की स्वतंत्रता का अधिकार
+=======
+Lesson Learnt
+Your voice matters. Listen respectfully, express yourself clearly and give others a chance to speak too.
+
+Legal and International Support
+- UN Convention on the Rights of the Child (UNCRC), Article 12 recognises children's right to express views in matters affecting them.
+- Article 19(1)(a) of the Constitution of India protects freedom of speech and expression.
+
+RIGHT TO FREEDOM OF EXPRESSION – अभिव्यक्ति की स्वतंत्रता का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Children should have opportunities to express their thoughts, ideas and feelings. Freedom of expression also comes with responsibility. We should express ourselves respectfully and should not use our words to threaten, bully or deliberately harm others.
 
+<<<<<<< HEAD
 🌟 Story: The Class Project
 A teacher asked students to choose a topic for a class project. Arjun wanted to study space, while his friend wanted to study animals. Instead of arguing, both students explained why they liked their choices. They listened to each other and reached a decision together.
 
 🗣️ What is the solution?
+=======
+Story: The Class Project
+A teacher asked students to choose a topic for a class project. Arjun wanted to study space, while his friend wanted to study animals. Instead of arguing, both students explained why they liked their choices. They listened to each other and reached a decision together.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children can:
 - Express their opinions respectfully.
 - Ask questions.
@@ -254,29 +427,48 @@ Children can:
 - Talk to a trusted adult about their feelings.
 - Avoid bullying, threats and harmful speech.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Your thoughts and feelings matter. Express them respectfully and allow others to express themselves too.
 
 ⚖️ Legal and International Support
+=======
+Lesson Learnt
+Your thoughts and feelings matter. Express them respectfully and allow others to express themselves too.
+
+Legal and International Support
+>>>>>>> origin/feature/tejaswini-final
 - Article 19(1)(a) of the Constitution of India protects freedom of speech and expression, subject to constitutional restrictions.
 - UNCRC Article 13 recognises children's freedom of expression.
 - UNCRC Article 12 is particularly relevant when children's views on matters affecting them are considered.`;
 
+<<<<<<< HEAD
 const mod5Content = `🏠 RIGHT TO FAMILY CARE – परिवार की देखभाल का अधिकार
+=======
+const mod5Content = `RIGHT TO FAMILY CARE – परिवार की देखभाल का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Children need a safe, caring and supportive family environment whenever possible. When a child cannot safely live with their parents or usual caregivers, child-protection systems can provide appropriate care and support.
 
+<<<<<<< HEAD
 🌟 Story: Sara Needs a Safe Home
 Sara was unable to safely stay with her family for some time. A responsible adult contacted the appropriate child-protection authorities. Sara was connected with a care system designed to protect her and support her well-being. The goal was not simply to give Sara a place to stay, but to make sure she was safe, cared for and supported.
 
 🏠 What is the solution?
+=======
+Story: Sara Needs a Safe Home
+Sara was unable to safely stay with her family for some time. A responsible adult contacted the appropriate child-protection authorities. Sara was connected with a care system designed to protect her and support her well-being. The goal was not simply to give Sara a place to stay, but to make sure she was safe, cared for and supported.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children who need help should:
 - Tell a trusted adult.
 - Seek help from responsible authorities when necessary.
 - Be provided with safe and appropriate care.
 - Receive support for education, health and development.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Every child deserves care, safety and support. A child who needs help should never be ignored.
 
@@ -284,14 +476,30 @@ Every child deserves care, safety and support. A child who needs help should nev
 - The Juvenile Justice (Care and Protection of Children) Act, 2015 provides a framework for children in need of care and protection, including rehabilitation, social reintegration and adoption-related provisions.
 
 ⚖️ RIGHT TO EQUALITY – समानता का अधिकार
+=======
+Lesson Learnt
+Every child deserves care, safety and support. A child who needs help should never be ignored.
+
+Important Law
+- The Juvenile Justice (Care and Protection of Children) Act, 2015 provides a framework for children in need of care and protection, including rehabilitation, social reintegration and adoption-related provisions.
+
+RIGHT TO EQUALITY – समानता का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Every child deserves fair and equal treatment. A child should not be treated unfairly because of their gender, disability, religion, language, social background or other personal circumstances.
 
+<<<<<<< HEAD
 🌟 Story: Everyone Gets a Chance
 A school was selecting students for a science competition. Two students had different backgrounds and one student had a disability. The teacher made sure that the selection process was fair and that the student with a disability received the support needed to participate. Everyone got an equal opportunity to show their abilities.
 
 ⚖️ What is the solution?
+=======
+Story: Everyone Gets a Chance
+A school was selecting students for a science competition. Two students had different backgrounds and one student had a disability. The teacher made sure that the selection process was fair and that the student with a disability received the support needed to participate. Everyone got an equal opportunity to show their abilities.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 We can promote equality by:
 - Treating people respectfully.
 - Including everyone in activities.
@@ -299,6 +507,7 @@ We can promote equality by:
 - Giving people a fair opportunity.
 - Speaking up when someone is being unfairly excluded.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Being different does not make someone less important. Everyone deserves dignity, respect and fair opportunities.
 
@@ -307,14 +516,31 @@ Being different does not make someone less important. Everyone deserves dignity,
 - Article 15 prohibits discrimination on specified grounds.
 
 ♿ RIGHTS OF CHILDREN WITH DISABILITIES – दिव्यांग बच्चों के अधिकार
+=======
+Lesson Learnt
+Being different does not make someone less important. Everyone deserves dignity, respect and fair opportunities.
+
+Constitutional Support
+- Article 14 provides equality before the law and equal protection of the laws.
+- Article 15 prohibits discrimination on specified grounds.
+
+RIGHTS OF CHILDREN WITH DISABILITIES – दिव्यांग बच्चों के अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Children with disabilities have the right to dignity, inclusion, education, healthcare, recreation and opportunities to participate in society. A disability should not be a reason to exclude a child from learning, playing or participating.
 
+<<<<<<< HEAD
 🌟 Story: Neha Joins the School Team
 Neha uses a wheelchair and wanted to participate in a school activity. At first, the activity area was difficult for her to access. The school made changes so that Neha could participate more easily. Her classmates also learned that inclusion means making sure everyone gets a fair opportunity to participate. Neha joined the activity and enjoyed it with her friends.
 
 ♿ What is the solution?
+=======
+Story: Neha Joins the School Team
+Neha uses a wheelchair and wanted to participate in a school activity. At first, the activity area was difficult for her to access. The school made changes so that Neha could participate more easily. Her classmates also learned that inclusion means making sure everyone gets a fair opportunity to participate. Neha joined the activity and enjoyed it with her friends.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Schools and communities can support inclusion by providing:
 - Accessible buildings and facilities.
 - Inclusive education.
@@ -323,6 +549,7 @@ Schools and communities can support inclusion by providing:
 - Equal opportunities in sports and activities.
 - Respectful treatment.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 A disability does not reduce a person's value. Everyone deserves dignity, inclusion and a fair opportunity to learn and participate.
 
@@ -330,14 +557,30 @@ A disability does not reduce a person's value. Everyone deserves dignity, inclus
 - The Rights of Persons with Disabilities Act, 2016 (RPwD Act) provides a legal framework concerning the rights and entitlements of persons with disabilities.`;
 
 const mod6Content = `⚽ RIGHT TO PLAY AND RECREATION – खेलने और मनोरंजन का अधिकार
+=======
+Lesson Learnt
+A disability does not reduce a person's value. Everyone deserves dignity, inclusion and a fair opportunity to learn and participate.
+
+Important Law
+- The Rights of Persons with Disabilities Act, 2016 (RPwD Act) provides a legal framework concerning the rights and entitlements of persons with disabilities.`;
+
+const mod6Content = `RIGHT TO PLAY AND RECREATION – खेलने और मनोरंजन का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Children have the right to play, rest and take part in recreational activities. Play can help children stay physically active, develop creativity, learn teamwork and enjoy time with others.
 
+<<<<<<< HEAD
 🌟 Story: Riya's Free Time
 Riya spent almost all her time studying because she thought playing was a waste of time. Her teacher explained that play is also important for a child's development. Riya started playing badminton with her friends after school. She became more active, learned teamwork and felt happier.
 
 ⚽ What is the solution?
+=======
+Story: Riya's Free Time
+Riya spent almost all her time studying because she thought playing was a waste of time. Her teacher explained that play is also important for a child's development. Riya started playing badminton with her friends after school. She became more active, learned teamwork and felt happier.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children should have opportunities to:
 - Play sports.
 - Draw and create.
@@ -346,6 +589,7 @@ Children should have opportunities to:
 - Participate in recreational activities.
 - Rest and relax.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Play is not a waste of time. Healthy play helps children grow, learn and enjoy life.
 
@@ -354,14 +598,31 @@ Play is not a waste of time. Healthy play helps children grow, learn and enjoy l
 - National Education Policy 2020 promotes holistic development and gives importance to sports and other activities.
 
 🔐 RIGHT TO PRIVACY – निजता का अधिकार
+=======
+Lesson Learnt
+Play is not a waste of time. Healthy play helps children grow, learn and enjoy life.
+
+International and Policy Support
+- UN Convention on the Rights of the Child, Article 31 recognises children's right to rest, leisure, play and recreational activities.
+- National Education Policy 2020 promotes holistic development and gives importance to sports and other activities.
+
+RIGHT TO PRIVACY – निजता का अधिकार
+>>>>>>> origin/feature/tejaswini-final
 
 What is this right?
 Children's personal information and private life should be respected and protected. Personal information can include passwords, phone numbers, home address, personal photographs, school details, location information and other identifying information.
 
+<<<<<<< HEAD
 🌟 Story: Don't Share the Password!
 Aanya received a message from someone online. The person said: "Send me your password and your home address. I want to send you a surprise." Aanya remembered what she had learned about online privacy. She did not share her information. Instead, she told her parent about the message and blocked the person.
 
 🔐 What is the solution?
+=======
+Story: Don't Share the Password!
+Aanya received a message from someone online. The person said: "Send me your password and your home address. I want to send you a surprise." Aanya remembered what she had learned about online privacy. She did not share her information. Instead, she told her parent about the message and blocked the person.
+
+What is the solution?
+>>>>>>> origin/feature/tejaswini-final
 Children should:
 - Keep passwords private.
 - Avoid sharing their home address online.
@@ -370,10 +631,17 @@ Children should:
 - Tell a trusted adult about suspicious requests.
 - Use strong passwords and appropriate privacy settings.
 
+<<<<<<< HEAD
 📚 Lesson Learnt
 Think before you share. Personal information should not be given to strangers or posted publicly without a good reason.
 
 ⚖️ Legal Support
+=======
+Lesson Learnt
+Think before you share. Personal information should not be given to strangers or posted publicly without a good reason.
+
+Legal Support
+>>>>>>> origin/feature/tejaswini-final
 - The Digital Personal Data Protection Act, 2023 establishes a legal framework for processing digital personal data and includes specific provisions relating to children's personal data.`;
 
 // ============================================================
@@ -398,7 +666,11 @@ const seedData = async () => {
         title: "My Safety & Identity",
         slug: "my-safety-and-identity",
         description: "Learn about your Right to Protection and Right to Identity – stay safe and know who you are!",
+<<<<<<< HEAD
         icon: "🛡️",
+=======
+        icon: "",
+>>>>>>> origin/feature/tejaswini-final
         content: mod1Content,
         order: 1,
         pointsReward: 50,
@@ -409,7 +681,11 @@ const seedData = async () => {
         title: "My Life & Well-being",
         slug: "my-life-and-wellbeing",
         description: "Your rights to survive, stay healthy, eat nutritious food, and have clean water.",
+<<<<<<< HEAD
         icon: "❤️",
+=======
+        icon: "",
+>>>>>>> origin/feature/tejaswini-final
         content: mod2Content,
         order: 2,
         pointsReward: 75,
@@ -420,7 +696,11 @@ const seedData = async () => {
         title: "My Learning & Growth",
         slug: "my-learning-and-growth",
         description: "Education and development – your keys to building a bright future!",
+<<<<<<< HEAD
         icon: "📚",
+=======
+        icon: "",
+>>>>>>> origin/feature/tejaswini-final
         content: mod3Content,
         order: 3,
         pointsReward: 50,
@@ -431,7 +711,11 @@ const seedData = async () => {
         title: "My Voice & Freedom",
         slug: "my-voice-and-freedom",
         description: "Your voice matters! Learn how to participate and express yourself.",
+<<<<<<< HEAD
         icon: "🗣️",
+=======
+        icon: "",
+>>>>>>> origin/feature/tejaswini-final
         content: mod4Content,
         order: 4,
         pointsReward: 75,
@@ -442,7 +726,11 @@ const seedData = async () => {
         title: "My Family, Equality & Inclusion",
         slug: "my-family-equality-and-inclusion",
         description: "Family care, equal treatment, and inclusion for every child.",
+<<<<<<< HEAD
         icon: "⚖️",
+=======
+        icon: "",
+>>>>>>> origin/feature/tejaswini-final
         content: mod5Content,
         order: 5,
         pointsReward: 100,
@@ -457,7 +745,11 @@ const seedData = async () => {
         title: "My Play & Privacy",
         slug: "my-play-and-privacy",
         description: "Playing is your right! And so is keeping your personal info safe.",
+<<<<<<< HEAD
         icon: "⚽",
+=======
+        icon: "",
+>>>>>>> origin/feature/tejaswini-final
         content: mod6Content,
         order: 6,
         pointsReward: 100,
@@ -640,10 +932,17 @@ const seedData = async () => {
 
     await KnowledgeArticle.insertMany([...articles, ...faqs]);
 
+<<<<<<< HEAD
     console.log("✅ Seed complete!");
     console.log(`   📦 ${modules.length} modules`);
     console.log(`   📝 ${quizzes.length} quizzes (${quizzes.reduce((s, q) => s + q.questions.length, 0)} questions)`);
     console.log(`   📰 ${articles.length} articles + ${faqs.length} FAQs`);
+=======
+    console.log("Seed complete!");
+    console.log(`   ${modules.length} modules`);
+    console.log(`   ${quizzes.length} quizzes (${quizzes.reduce((s, q) => s + q.questions.length, 0)} questions)`);
+    console.log(`   ${articles.length} articles + ${faqs.length} FAQs`);
+>>>>>>> origin/feature/tejaswini-final
     process.exit(0);
   } catch (error) {
     console.error("Seeding error:", error);

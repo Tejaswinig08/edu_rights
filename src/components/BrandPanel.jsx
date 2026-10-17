@@ -1,4 +1,4 @@
-import { Sparkles } from "lucide-react";
+import { Sparkles, Scale, GraduationCap, BookOpen } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 function BrandPanel({ mode }) {
@@ -11,7 +11,7 @@ function BrandPanel({ mode }) {
       <div className="brand-logo">
 
         <div className="brand-icon">
-          ⚖
+          <Scale size={24} />
         </div>
 
         <span>
@@ -29,10 +29,9 @@ function BrandPanel({ mode }) {
 
         <div className="hero-image-placeholder">
 
-          <div className="hero-emoji">
-            {isSignup
-              ? "👩‍🎓 👨‍🎓 📚"
-              : "📚 👩‍🎓 📖"}
+          <div className="hero-icon-group" style={{ display: "flex", gap: 12, justifyContent: "center", marginBottom: 12, color: "#095957" }}>
+            <GraduationCap size={44} />
+            <BookOpen size={44} />
           </div>
 
           <span>

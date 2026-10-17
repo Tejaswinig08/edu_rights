@@ -7,15 +7,23 @@ const connectDB = async () => {
       connectTimeoutMS: 10000,
     });
 
+<<<<<<< HEAD
     console.log(`✅ MongoDB connected: ${conn.connection.host} (DB: ${conn.connection.name})`);
     return conn;
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
+=======
+    console.log(`MongoDB connected: ${conn.connection.host} (DB: ${conn.connection.name})`);
+    return conn;
+  } catch (error) {
+    console.error("MongoDB connection failed:", error.message);
+>>>>>>> origin/feature/tejaswini-final
     throw error;
   }
 };
 
 mongoose.connection.on("disconnected", () => {
+<<<<<<< HEAD
   console.warn("⚠️ MongoDB disconnected. Attempting reconnection...");
 });
 
@@ -25,6 +33,17 @@ mongoose.connection.on("reconnected", () => {
 
 mongoose.connection.on("error", (err) => {
   console.error("❌ MongoDB connection error:", err.message);
+=======
+  console.warn("MongoDB disconnected. Attempting reconnection...");
+});
+
+mongoose.connection.on("reconnected", () => {
+  console.log("MongoDB reconnected successfully.");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.error("MongoDB connection error:", err.message);
+>>>>>>> origin/feature/tejaswini-final
 });
 
 export default connectDB;

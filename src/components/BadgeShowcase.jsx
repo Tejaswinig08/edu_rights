@@ -1,4 +1,5 @@
 import React from "react";
+import { Award } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 const BadgeShowcase = ({ badges = [] }) => {
@@ -16,7 +17,7 @@ const BadgeShowcase = ({ badges = [] }) => {
     <div className="badges-row">
       {badges.map((badge, idx) => (
         <div key={idx} className="badge-item">
-          <div className="badge-icon-circle">{badge.icon || "🏆"}</div>
+          <div className="badge-icon-circle">{badge.icon ? badge.icon : <Award size={22} />}</div>
           <span className="badge-name">{getBadgeName(badge.name)}</span>
         </div>
       ))}

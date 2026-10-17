@@ -29,6 +29,17 @@ const feedbackSchema = new mongoose.Schema(
       enum: ["pending", "reviewed", "resolved"],
       default: "pending",
     },
+<<<<<<< HEAD
+=======
+    translations: {
+      type: Object,
+      default: {},
+    },
+    detectedLanguage: {
+      type: String,
+      default: "en",
+    },
+>>>>>>> origin/feature/tejaswini-final
   },
   {
     timestamps: true,

@@ -71,7 +71,7 @@ const ModuleDetail = () => {
         rating: feedbackRating,
         comment: feedbackComment.trim(),
       });
-      setFeedbackSuccess("✅ Thank you! Your feedback has been submitted.");
+      setFeedbackSuccess("Thank you! Your feedback has been submitted.");
       setExistingFeedback({ rating: feedbackRating, comment: feedbackComment });
     } catch (err) {
       setFeedbackError(err.response?.data?.message || "Failed to submit feedback.");
@@ -99,24 +99,16 @@ const ModuleDetail = () => {
       const trimmed = line.trim();
       if (!trimmed) return;
 
-      // Section headers (emoji prefix patterns)
+      // Section headers
       if (
-        trimmed.startsWith("🌟") ||
-        trimmed.startsWith("🛡️") ||
-        trimmed.startsWith("🏥") ||
-        trimmed.startsWith("🌱") ||
-        trimmed.startsWith("🗣️") ||
-        trimmed.startsWith("💧") ||
-        trimmed.startsWith("🪪") ||
-        trimmed.startsWith("🏠") ||
-        trimmed.startsWith("⚽") ||
-        trimmed.startsWith("🔐") ||
-        trimmed.startsWith("♿") ||
-        trimmed.startsWith("🍎") ||
-        trimmed.startsWith("⚖️") ||
-        trimmed.startsWith("📚") ||
-        trimmed.startsWith("❤️") ||
-        trimmed.startsWith("🎤")
+        trimmed.startsWith('RIGHT TO') ||
+        trimmed.startsWith('RIGHTS OF') ||
+        trimmed.startsWith('Story:') ||
+        trimmed.startsWith('हक्क') ||
+        trimmed.startsWith('कथा:') ||
+        trimmed.startsWith('अधिकार') ||
+        trimmed.startsWith('कहानी:') ||
+        trimmed.startsWith('गोष्ट:')
       ) {
         elements.push(
           <h3 key={i} className="module-section-header">
@@ -185,7 +177,7 @@ const ModuleDetail = () => {
 
         <div className="module-detail-header">
           <div className="header-left">
-            <span className="module-icon-large">{module.icon || "📚"}</span>
+            {module.icon ? <span className="module-icon-large">{module.icon}</span> : null}
             <div>
               <h1>{displayTitle}</h1>
               <p className="module-detail-desc">{displayDesc}</p>
@@ -222,7 +214,7 @@ const ModuleDetail = () => {
         {progress?.completed && (
           <div className="feedback-section">
             <h3 className="feedback-title">
-              ⭐ {existingFeedback ? "Update Your Feedback" : "Rate This Module"}
+              {existingFeedback ? "Update Your Feedback" : "Rate This Module"}
             </h3>
 
             {feedbackSuccess && (
@@ -240,7 +232,7 @@ const ModuleDetail = () => {
                   onMouseLeave={() => setFeedbackHover(0)}
                   aria-label={`Rate ${star} stars`}
                 >
-                  ★
+                  <Star size={24} fill={star <= (feedbackHover || feedbackRating) ? "#f39c12" : "none"} color={star <= (feedbackHover || feedbackRating) ? "#f39c12" : "#cbd5e1"} />
                 </button>
               ))}
               {feedbackRating > 0 && (

@@ -18,7 +18,7 @@ if (!existingAdmin) {
     role: "admin",
     isVerified: true,
   });
-  console.log("✅ Created dedicated admin account: admin@eduright.com / Admin@12345");
+  console.log("Created dedicated admin account: admin@eduright.com / Admin@12345");
 } else {
   console.log("Admin account admin@eduright.com already exists.");
   if (existingAdmin.role !== "admin") {

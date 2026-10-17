@@ -20,7 +20,11 @@ const startServer = async () => {
     } catch (error) {
       console.error(`[Database] Attempt ${attempts} failed: ${error.message}`);
       if (attempts >= maxRetries) {
+<<<<<<< HEAD
         console.error("❌ Fatal: Could not connect to MongoDB after multiple attempts. Exiting.");
+=======
+        console.error("Fatal: Could not connect to MongoDB after multiple attempts. Exiting.");
+>>>>>>> origin/feature/tejaswini-final
         process.exit(1);
       }
       console.log("[Database] Retrying in 3 seconds...");
@@ -29,7 +33,11 @@ const startServer = async () => {
   }
 
   app.listen(PORT, () => {
+<<<<<<< HEAD
     console.log(`🚀 EduRight server running on http://localhost:${PORT}`);
+=======
+    console.log(`EduRight server running on http://localhost:${PORT}`);
+>>>>>>> origin/feature/tejaswini-final
   });
 };
 

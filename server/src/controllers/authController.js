@@ -17,6 +17,11 @@ export const signup = async (req, res) => {
       name,
       email,
       password,
+<<<<<<< HEAD
+=======
+      role = "user",
+      adminCode,
+>>>>>>> origin/feature/tejaswini-final
     } = req.body;
 
     // 1. Required fields
@@ -28,6 +33,48 @@ export const signup = async (req, res) => {
       });
     }
 
+<<<<<<< HEAD
+=======
+    // 1b. Role validation & Admin Security Check
+    const normalizedRole = typeof role === "string" ? role.trim().toLowerCase() : "user";
+    if (!["user", "student", "admin"].includes(normalizedRole)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid role selected. Allowed options are User and Admin.",
+      });
+    }
+
+    let assignedRole = "student";
+    if (normalizedRole === "admin") {
+      const serverAdminCode = process.env.ADMIN_REGISTRATION_CODE;
+      if (!serverAdminCode) {
+        console.error("ADMIN_REGISTRATION_CODE is not configured on server.");
+        return res.status(500).json({
+          success: false,
+          message: "Admin registration is currently unavailable.",
+        });
+      }
+
+      if (!adminCode || typeof adminCode !== "string" || !adminCode.trim()) {
+        return res.status(403).json({
+          success: false,
+          code: "ADMIN_CODE_REQUIRED",
+          message: "Admin authorization code is required for administrator registration.",
+        });
+      }
+
+      if (adminCode.trim() !== serverAdminCode.trim()) {
+        return res.status(403).json({
+          success: false,
+          code: "INVALID_ADMIN_CODE",
+          message: "Invalid admin authorization code. You are not authorized to create an Admin account.",
+        });
+      }
+
+      assignedRole = "admin";
+    }
+
+>>>>>>> origin/feature/tejaswini-final
     // 2. Clean input
     const cleanName = name.trim();
 
@@ -83,18 +130,32 @@ export const signup = async (req, res) => {
     const hashedPassword =
       await bcrypt.hash(password, 12);
 
+<<<<<<< HEAD
     // 8. Create user
+=======
+    // 8. Create user with assigned role
+>>>>>>> origin/feature/tejaswini-final
     const user = await User.create({
       name: cleanName,
       email: cleanEmail,
       password: hashedPassword,
+<<<<<<< HEAD
+=======
+      role: assignedRole,
+>>>>>>> origin/feature/tejaswini-final
     });
 
     // 9. Response
     return res.status(201).json({
       success: true,
       message:
+<<<<<<< HEAD
         "Account created successfully.",
+=======
+        assignedRole === "admin"
+          ? "Admin account created successfully."
+          : "Account created successfully.",
+>>>>>>> origin/feature/tejaswini-final
 
       user: {
         id: user._id,
@@ -234,6 +295,10 @@ export const login = async (req, res) => {
         points: user.points,
         level: user.level,
         badges: user.badges,
+<<<<<<< HEAD
+=======
+        preferredLanguage: user.preferredLanguage || "en",
+>>>>>>> origin/feature/tejaswini-final
       },
     });
 
@@ -279,6 +344,10 @@ export const getMe = async (req, res) => {
         points: user.points,
         level: user.level,
         badges: user.badges,
+<<<<<<< HEAD
+=======
+        preferredLanguage: user.preferredLanguage || "en",
+>>>>>>> origin/feature/tejaswini-final
       },
     });
 
@@ -297,6 +366,7 @@ export const getMe = async (req, res) => {
 };
 
 // ==========================================
+<<<<<<< HEAD
 // UPDATE PROFILE
 // ==========================================
 
@@ -393,5 +463,29 @@ export const updateProfile = async (req, res) => {
       success: false,
       message: "Something went wrong while updating your profile.",
     });
+=======
+// UPDATE PREFERRED LANGUAGE
+// ==========================================
+
+export const updatePreferredLanguage = async (req, res) => {
+  try {
+    const { language } = req.body;
+    if (!["en", "hi", "mr", "es"].includes(language)) {
+      return res.status(400).json({ success: false, message: "Invalid language selection." });
+    }
+    const user = await User.findByIdAndUpdate(
+      req.user.userId,
+      { preferredLanguage: language },
+      { new: true }
+    ).select("-password");
+
+    return res.status(200).json({
+      success: true,
+      preferredLanguage: user?.preferredLanguage || "en",
+    });
+  } catch (error) {
+    console.error("Error updating preferred language:", error);
+    return res.status(500).json({ success: false, message: "Server error." });
+>>>>>>> origin/feature/tejaswini-final
   }
 };

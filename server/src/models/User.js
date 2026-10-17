@@ -53,6 +53,15 @@ const userSchema = new mongoose.Schema(
         earnedAt: { type: Date, default: Date.now },
       },
     ],
+<<<<<<< HEAD
+=======
+
+    preferredLanguage: {
+      type: String,
+      enum: ["en", "hi", "mr", "es"],
+      default: "en",
+    },
+>>>>>>> origin/feature/tejaswini-final
   },
 
   {

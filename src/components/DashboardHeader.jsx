@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LogOut, BookOpen, Home, Library } from "lucide-react";
+import { LogOut, BookOpen, Home, Library, Scale, MessageSquare, Shield } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import LanguageSelector from "./LanguageSelector";
@@ -26,7 +26,9 @@ const DashboardHeader = ({ onEditProfile }) => {
   return (
     <header className="dashboard-header">
       <div className="brand-logo">
-        <span className="brand-icon">⚖</span>
+        <span className="brand-icon">
+          <Scale size={18} />
+        </span>
         <span className="brand-text">EduRight</span>
       </div>
 
@@ -54,12 +56,12 @@ const DashboardHeader = ({ onEditProfile }) => {
           }}
           style={{ display: "flex", alignItems: "center", gap: 6, textDecoration: "none", color: "inherit", fontWeight: 600, fontSize: 14 }}
         >
-          <span style={{ fontSize: 16 }}>⭐</span>
-          <span>Feedback</span>
+          <MessageSquare size={16} />
+          <span>{t("feedback")}</span>
         </a>
         {user?.role === "admin" && (
           <NavLink to="/admin" style={{ color: "#e67e22", fontWeight: 700 }}>
-            <span style={{ fontSize: 16 }}>🛡️</span>
+            <Shield size={16} />
             <span>Admin Panel</span>
           </NavLink>
         )}

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Star, X, CheckCircle, MessageSquare } from "lucide-react";
 import api from "../api/axios";
 import toast from "react-hot-toast";
+import { useLanguage } from "../context/LanguageContext";
 
 const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedbackSubmitted }) => {
+  const { t, getModuleTitle } = useLanguage();
   const [selectedModule, setSelectedModule] = useState(module || null);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -83,8 +85,8 @@ const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedb
       });
 
       if (res.data.success) {
-        toast.success(existingFeedback ? "Feedback updated!" : "Feedback submitted successfully! ⭐");
-        setSuccess("✅ Thank you! Your feedback has been saved.");
+        toast.success(existingFeedback ? "Feedback updated!" : "Feedback submitted successfully!");
+        setSuccess("Thank you! Your feedback has been saved.");
         setExistingFeedback(res.data.feedback || { rating, comment });
         if (onFeedbackSubmitted) onFeedbackSubmitted(res.data.feedback);
         setTimeout(() => {
@@ -100,7 +102,7 @@ const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedb
 
   const getTitle = (m) => {
     if (!m) return "";
-    return typeof m.title === "object" ? m.title.en || m.title.mr || "" : m.title;
+    return getModuleTitle(m) || (typeof m.title === "object" ? m.title.en || m.title.mr || "" : m.title);
   };
 
   const hasCompletedModules = completedModules.length > 0 || selectedModule;
@@ -111,7 +113,9 @@ const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedb
         {/* Modal Header */}
         <div className="feedback-modal-header">
           <div className="feedback-modal-title-wrap">
-            <span className="feedback-modal-icon">⭐</span>
+            <span className="feedback-modal-icon">
+              <Star size={22} color="#f59e0b" fill="#f59e0b" />
+            </span>
             <div>
               <h3>{existingFeedback ? "Edit Module Feedback" : "Give Module Feedback"}</h3>
               <p className="feedback-modal-subtitle">Share your experience to help us improve learning quests!</p>
@@ -125,7 +129,9 @@ const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedb
         {/* Modal Body */}
         {!hasCompletedModules ? (
           <div className="feedback-empty-state">
-            <div className="feedback-empty-icon">🎯</div>
+            <div className="feedback-empty-icon">
+              <MessageSquare size={44} color="#095957" />
+            </div>
             <h4>No Completed Modules Yet</h4>
             <p>
               Feedback is available for completed modules. Finish any module and pass its quiz with 70% or more to unlock feedback!
@@ -150,7 +156,7 @@ const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedb
                 >
                   {completedModules.map((m) => (
                     <option key={m._id} value={m._id}>
-                      {m.icon || "📚"} {getTitle(m)}
+                      {getTitle(m)}
                     </option>
                   ))}
                 </select>
@@ -160,7 +166,7 @@ const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedb
             {/* Selected Module Display if single */}
             {completedModules.length <= 1 && selectedModule && (
               <div className="feedback-module-badge">
-                <span className="badge-icon">{selectedModule.icon || "📚"}</span>
+                {selectedModule.icon && <span className="badge-icon">{selectedModule.icon}</span>}
                 <span className="badge-name">{getTitle(selectedModule)}</span>
               </div>
             )}
@@ -186,12 +192,12 @@ const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedb
                         onMouseLeave={() => setHover(0)}
                         aria-label={`${star} star`}
                       >
-                        ★
+                        <Star size={24} fill={star <= (hover || rating) ? "#f59e0b" : "none"} color={star <= (hover || rating) ? "#f59e0b" : "#cbd5e1"} />
                       </button>
                     ))}
                     {rating > 0 && (
                       <span className="feedback-rating-text">
-                        {rating === 5 ? "🌟 Excellent!" : rating === 4 ? "👍 Very Good" : rating === 3 ? "😊 Good" : rating === 2 ? "😐 Fair" : "Needs Improvement"}
+                        {rating === 5 ? "Excellent!" : rating === 4 ? "Very Good" : rating === 3 ? "Good" : rating === 2 ? "Fair" : "Needs Improvement"}
                       </span>
                     )}
                   </div>
@@ -228,7 +234,7 @@ const FeedbackModal = ({ isOpen, onClose, module, completedModules = [], onFeedb
                     Cancel
                   </button>
                   <button type="submit" className="feedback-submit-btn" disabled={submitting || !rating}>
-                    {submitting ? "Saving..." : existingFeedback ? "Update Feedback" : "Submit Feedback ✨"}
+                    {submitting ? "Saving..." : existingFeedback ? "Update Feedback" : "Submit Feedback"}
                   </button>
                 </div>
               </>

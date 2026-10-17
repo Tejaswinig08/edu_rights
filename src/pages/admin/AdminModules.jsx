@@ -31,9 +31,48 @@ const AdminModules = () => {
 
   useEffect(() => { fetchModules(); }, []);
 
+<<<<<<< HEAD
   const openCreate = () => {
     setEditModule(null);
     setForm(EMPTY_MODULE);
+=======
+  const validateYouTubeUrl = (url) => {
+    if (!url || typeof url !== "string") return false;
+    const trimmed = url.trim();
+    if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return true;
+    const patterns = [
+      /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([a-zA-Z0-9_-]{11})/i,
+      /^[a-zA-Z0-9_-]{11}$/,
+    ];
+    return patterns.some((p) => p.test(trimmed));
+  };
+
+  const addVideo = () => {
+    setForm((prev) => ({
+      ...prev,
+      videoUrls: [...(prev.videoUrls || []), { title: "", url: "" }],
+    }));
+  };
+
+  const updateVideo = (index, field, value) => {
+    setForm((prev) => {
+      const updated = [...(prev.videoUrls || [])];
+      updated[index] = { ...updated[index], [field]: value };
+      return { ...prev, videoUrls: updated };
+    });
+  };
+
+  const removeVideo = (index) => {
+    setForm((prev) => ({
+      ...prev,
+      videoUrls: (prev.videoUrls || []).filter((_, i) => i !== index),
+    }));
+  };
+
+  const openCreate = () => {
+    setEditModule(null);
+    setForm({ ...EMPTY_MODULE, videoUrls: [] });
+>>>>>>> origin/feature/tejaswini-final
     setShowModal(true);
   };
 
@@ -48,7 +87,11 @@ const AdminModules = () => {
       order: mod.order || 1,
       pointsReward: mod.pointsReward || 50,
       requiredLevel: mod.requiredLevel || 1,
+<<<<<<< HEAD
       videoUrls: mod.videoUrls || [],
+=======
+      videoUrls: (mod.videoUrls || []).map((v) => ({ _id: v._id, title: v.title || "", url: v.url || "" })),
+>>>>>>> origin/feature/tejaswini-final
     });
     setShowModal(true);
   };
@@ -59,6 +102,7 @@ const AdminModules = () => {
       setAlert({ type: "error", msg: "Title and slug are required." });
       return;
     }
+<<<<<<< HEAD
     setSaving(true);
     try {
       if (editModule) {
@@ -66,6 +110,46 @@ const AdminModules = () => {
         setAlert({ type: "success", msg: "Module updated!" });
       } else {
         await api.post("/admin/modules", form);
+=======
+
+    // Validate video URLs if any provided
+    const validVideos = [];
+    if (form.videoUrls && form.videoUrls.length > 0) {
+      for (let i = 0; i < form.videoUrls.length; i++) {
+        const v = form.videoUrls[i];
+        if (!v || (!v.title?.trim() && !v.url?.trim())) continue;
+        if (!v.url || !v.url.trim()) {
+          setAlert({ type: "error", msg: `Please provide a URL for Video #${i + 1} (${v.title || "Untitled"}).` });
+          return;
+        }
+        if (!validateYouTubeUrl(v.url)) {
+          setAlert({
+            type: "error",
+            msg: `Video #${i + 1} has an invalid YouTube URL. Supported formats: youtube.com/watch?v=..., youtu.be/..., or embed URL.`,
+          });
+          return;
+        }
+        validVideos.push({
+          _id: v._id,
+          title: v.title?.trim() || "Module Video",
+          url: v.url.trim(),
+        });
+      }
+    }
+
+    setSaving(true);
+    try {
+      const payload = {
+        ...form,
+        videoUrls: validVideos,
+      };
+
+      if (editModule) {
+        await api.put(`/admin/modules/${editModule._id}`, payload);
+        setAlert({ type: "success", msg: "Module updated!" });
+      } else {
+        await api.post("/admin/modules", payload);
+>>>>>>> origin/feature/tejaswini-final
         setAlert({ type: "success", msg: "Module created!" });
       }
       setShowModal(false);
@@ -185,6 +269,69 @@ const AdminModules = () => {
                 <label className="admin-form-label">Content</label>
                 <textarea className="admin-form-textarea" value={form.content} onChange={(e) => setField("content", e.target.value)} style={{ minHeight: 160 }} />
               </div>
+<<<<<<< HEAD
+=======
+
+              {/* YouTube Video Lessons */}
+              <div className="admin-form-group" style={{ borderTop: "1px solid #e8ecef", paddingTop: 16 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <label className="admin-form-label" style={{ margin: 0, fontWeight: 700 }}>
+                    📺 Video Lessons (YouTube)
+                  </label>
+                  <button type="button" className="btn btn-ghost btn-sm" onClick={addVideo}>
+                    + Add Video
+                  </button>
+                </div>
+
+                {(!form.videoUrls || form.videoUrls.length === 0) && (
+                  <p style={{ color: "#7f8c8d", fontSize: 13, margin: "4px 0 10px" }}>
+                    No videos attached. Click "+ Add Video" to add interactive video lessons.
+                  </p>
+                )}
+
+                {form.videoUrls && form.videoUrls.map((vid, vIdx) => (
+                  <div
+                    key={vIdx}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1.6fr auto",
+                      gap: 8,
+                      marginBottom: 8,
+                      alignItems: "center",
+                      background: "#f8f9fa",
+                      padding: "8px 10px",
+                      borderRadius: 8,
+                      border: "1px solid #e8ecef",
+                    }}
+                  >
+                    <input
+                      className="admin-form-input"
+                      placeholder="Video Title (e.g. Right to Protection)"
+                      value={vid.title || ""}
+                      onChange={(e) => updateVideo(vIdx, "title", e.target.value)}
+                    />
+                    <input
+                      className="admin-form-input"
+                      placeholder="YouTube URL (watch?v=, youtu.be/, embed/)"
+                      value={vid.url || ""}
+                      onChange={(e) => updateVideo(vIdx, "url", e.target.value)}
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-danger btn-sm"
+                      onClick={() => removeVideo(vIdx)}
+                      title="Remove Video"
+                      style={{ padding: "8px 10px" }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+                <small style={{ color: "#7f8c8d", display: "block" }}>
+                  Supported formats: https://youtube.com/watch?v=..., https://youtu.be/..., or embed URL.
+                </small>
+              </div>
+>>>>>>> origin/feature/tejaswini-final
               <div className="admin-modal-actions">
                 <button type="button" className="btn btn-ghost" onClick={() => setShowModal(false)}>Cancel</button>
                 <button type="submit" className="btn btn-primary" disabled={saving}>

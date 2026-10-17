@@ -79,7 +79,7 @@ const KnowledgeHub = () => {
                 </p>
                 {article.source && (
                   <span className="knowledge-card-source">
-                    📎 {article.source}
+                    {article.source}
                   </span>
                 )}
               </Link>

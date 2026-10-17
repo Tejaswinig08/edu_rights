@@ -34,6 +34,13 @@ const moduleSchema = new mongoose.Schema({
     title: String,
     url: String,
   }],
+<<<<<<< HEAD
+=======
+  translations: {
+    type: Object,
+    default: {},
+  },
+>>>>>>> origin/feature/tejaswini-final
 });
 
 const Module = mongoose.model("Module", moduleSchema);

@@ -5,21 +5,38 @@ import User from "../models/User.js";
 
 const LEVEL_THRESHOLDS = [0, 100, 200, 325, 450];
 const LEVEL_BADGES = [
+<<<<<<< HEAD
   "Welcome Explorer 🌟",
   "Quick Learner 📖",
   "Rights Champion 🛡️",
   "Knowledge Hero 🦸",
   "Justice Master ⚖️",
+=======
+  "Welcome Explorer",
+  "Quick Learner",
+  "Rights Champion",
+  "Knowledge Hero",
+  "Justice Master",
+>>>>>>> origin/feature/tejaswini-final
 ];
 
 // Badge awarded when a module is completed (score >= 70%)
 const MODULE_BADGES = {
+<<<<<<< HEAD
   "my-safety-and-identity": { name: "Safety Guardian 🛡️", icon: "🛡️" },
   "my-life-and-wellbeing": { name: "Life Protector ❤️", icon: "❤️" },
   "my-learning-and-growth": { name: "Knowledge Seeker 📚", icon: "📚" },
   "my-voice-and-freedom": { name: "Voice Champion 🗣️", icon: "🗣️" },
   "my-family-equality-and-inclusion": { name: "Equality Hero ⚖️", icon: "⚖️" },
   "my-play-and-privacy": { name: "Play & Privacy Star ⚽", icon: "⚽" },
+=======
+  "my-safety-and-identity": { name: "Safety Guardian", icon: "" },
+  "my-life-and-wellbeing": { name: "Life Protector", icon: "" },
+  "my-learning-and-growth": { name: "Knowledge Seeker", icon: "" },
+  "my-voice-and-freedom": { name: "Voice Champion", icon: "" },
+  "my-family-equality-and-inclusion": { name: "Equality Hero", icon: "" },
+  "my-play-and-privacy": { name: "Play & Privacy Star", icon: "" },
+>>>>>>> origin/feature/tejaswini-final
 };
 
 // ==========================================
@@ -41,12 +58,32 @@ export const getQuiz = async (req, res) => {
       options: q.options,
     }));
 
+<<<<<<< HEAD
+=======
+    let sanitizedTranslations = undefined;
+    if (quiz.translations && typeof quiz.translations === "object") {
+      sanitizedTranslations = {};
+      for (const [lang, tList] of Object.entries(quiz.translations)) {
+        if (Array.isArray(tList)) {
+          sanitizedTranslations[lang] = tList.map((tq) => ({
+            question: tq.question,
+            options: tq.options,
+          }));
+        }
+      }
+    }
+
+>>>>>>> origin/feature/tejaswini-final
     return res.status(200).json({
       success: true,
       quiz: {
         _id: quiz._id,
         moduleId: quiz.moduleId,
         questions: sanitizedQuestions,
+<<<<<<< HEAD
+=======
+        translations: sanitizedTranslations,
+>>>>>>> origin/feature/tejaswini-final
       },
     });
   } catch (error) {
@@ -121,9 +158,15 @@ export const submitQuiz = async (req, res) => {
         const badgeIndex = newLevel - 1;
         if (badgeIndex < LEVEL_BADGES.length) {
           const badgeName = LEVEL_BADGES[badgeIndex];
+<<<<<<< HEAD
           const hasBadge = user.badges.some((b) => b.name === badgeName);
           if (!hasBadge) {
             const levelBadge = { name: badgeName, icon: "🏅" };
+=======
+          const hasBadge = user.badges.some((b) => b.name === badgeName || b.name.startsWith(badgeName));
+          if (!hasBadge) {
+            const levelBadge = { name: badgeName, icon: "" };
+>>>>>>> origin/feature/tejaswini-final
             user.badges.push(levelBadge);
             newBadges.push(levelBadge);
           }
@@ -149,7 +192,11 @@ export const submitQuiz = async (req, res) => {
     if (score >= 70) {
       const moduleBadge = MODULE_BADGES[slug];
       if (moduleBadge) {
+<<<<<<< HEAD
         const hasBadge = user.badges.some((b) => b.name === moduleBadge.name);
+=======
+        const hasBadge = user.badges.some((b) => b.name === moduleBadge.name || b.name.startsWith(moduleBadge.name));
+>>>>>>> origin/feature/tejaswini-final
         if (!hasBadge) {
           user.badges.push({ name: moduleBadge.name, icon: moduleBadge.icon });
           newBadges.push(moduleBadge);

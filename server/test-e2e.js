@@ -162,7 +162,7 @@ async function runTests() {
     await Progress.deleteMany({ userId: student._id });
     await User.findByIdAndDelete(student._id);
 
-    console.log("\n🎉 ALL TESTS PASSED SUCCESSFULLY! Security & CRUD are fully operational.");
+    console.log("\nALL TESTS PASSED SUCCESSFULLY! Security & CRUD are fully operational.");
   } finally {
     server.close();
     process.exit(0);

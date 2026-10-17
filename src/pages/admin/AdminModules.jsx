@@ -31,11 +31,6 @@ const AdminModules = () => {
 
   useEffect(() => { fetchModules(); }, []);
 
-<<<<<<< HEAD
-  const openCreate = () => {
-    setEditModule(null);
-    setForm(EMPTY_MODULE);
-=======
   const validateYouTubeUrl = (url) => {
     if (!url || typeof url !== "string") return false;
     const trimmed = url.trim();
@@ -72,7 +67,6 @@ const AdminModules = () => {
   const openCreate = () => {
     setEditModule(null);
     setForm({ ...EMPTY_MODULE, videoUrls: [] });
->>>>>>> origin/feature/tejaswini-final
     setShowModal(true);
   };
 
@@ -87,11 +81,7 @@ const AdminModules = () => {
       order: mod.order || 1,
       pointsReward: mod.pointsReward || 50,
       requiredLevel: mod.requiredLevel || 1,
-<<<<<<< HEAD
-      videoUrls: mod.videoUrls || [],
-=======
       videoUrls: (mod.videoUrls || []).map((v) => ({ _id: v._id, title: v.title || "", url: v.url || "" })),
->>>>>>> origin/feature/tejaswini-final
     });
     setShowModal(true);
   };
@@ -102,15 +92,6 @@ const AdminModules = () => {
       setAlert({ type: "error", msg: "Title and slug are required." });
       return;
     }
-<<<<<<< HEAD
-    setSaving(true);
-    try {
-      if (editModule) {
-        await api.put(`/admin/modules/${editModule._id}`, form);
-        setAlert({ type: "success", msg: "Module updated!" });
-      } else {
-        await api.post("/admin/modules", form);
-=======
 
     // Validate video URLs if any provided
     const validVideos = [];
@@ -149,7 +130,6 @@ const AdminModules = () => {
         setAlert({ type: "success", msg: "Module updated!" });
       } else {
         await api.post("/admin/modules", payload);
->>>>>>> origin/feature/tejaswini-final
         setAlert({ type: "success", msg: "Module created!" });
       }
       setShowModal(false);
@@ -269,8 +249,6 @@ const AdminModules = () => {
                 <label className="admin-form-label">Content</label>
                 <textarea className="admin-form-textarea" value={form.content} onChange={(e) => setField("content", e.target.value)} style={{ minHeight: 160 }} />
               </div>
-<<<<<<< HEAD
-=======
 
               {/* YouTube Video Lessons */}
               <div className="admin-form-group" style={{ borderTop: "1px solid #e8ecef", paddingTop: 16 }}>
@@ -331,7 +309,6 @@ const AdminModules = () => {
                   Supported formats: https://youtube.com/watch?v=..., https://youtu.be/..., or embed URL.
                 </small>
               </div>
->>>>>>> origin/feature/tejaswini-final
               <div className="admin-modal-actions">
                 <button type="button" className="btn btn-ghost" onClick={() => setShowModal(false)}>Cancel</button>
                 <button type="submit" className="btn btn-primary" disabled={saving}>

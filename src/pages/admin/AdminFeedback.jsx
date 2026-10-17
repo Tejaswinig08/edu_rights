@@ -153,12 +153,6 @@ const AdminFeedback = () => {
             <p><strong>Module:</strong> {getModuleTitle(viewFeedback.module)}</p>
             <p><strong>Rating:</strong> <span style={{ color: "#f39c12", fontSize: 18 }}>{stars(viewFeedback.rating)}</span> {viewFeedback.rating}/5</p>
             <p><strong>Status:</strong> <span className={`badge ${viewFeedback.status}`}>{viewFeedback.status}</span></p>
-<<<<<<< HEAD
-            <p><strong>Date:</strong> {fmt(viewFeedback.createdAt)}</p>
-            <div style={{ marginTop: 12, padding: 12, background: "#f8f9fa", borderRadius: 8, fontSize: 14 }}>
-              {viewFeedback.comment || <em style={{ color: "#7f8c8d" }}>No comment provided.</em>}
-            </div>
-=======
             <div style={{ marginTop: 12, padding: 12, background: "#f8f9fa", borderRadius: 8, fontSize: 14 }}>
               <strong>Original Comment:</strong>
               <div style={{ marginTop: 4, whiteSpace: "pre-wrap" }}>
@@ -185,21 +179,12 @@ const AdminFeedback = () => {
                 })}
               </div>
             )}
->>>>>>> origin/feature/tejaswini-final
             <div className="admin-modal-actions">
               {viewFeedback.status !== "reviewed" && (
                 <button className="btn btn-primary" onClick={() => handleStatusChange(viewFeedback._id, "reviewed")}>
                   Mark Reviewed
                 </button>
               )}
-<<<<<<< HEAD
-              {viewFeedback.status !== "resolved" && (
-                <button className="btn btn-success" onClick={() => handleStatusChange(viewFeedback._id, "resolved")}>
-                  Mark Resolved
-                </button>
-              )}
-=======
->>>>>>> origin/feature/tejaswini-final
               <button className="btn btn-danger" onClick={() => setDeleteConfirm(viewFeedback)}>Delete</button>
               <button className="btn btn-ghost" onClick={() => setViewFeedback(null)}>Close</button>
             </div>

@@ -11,10 +11,7 @@ const AdminUsers = () => {
   const [roleFilter, setRoleFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState(null);
-<<<<<<< HEAD
-=======
   const [roleUpdating, setRoleUpdating] = useState(false);
->>>>>>> origin/feature/tejaswini-final
   const [alert, setAlert] = useState({ type: "", msg: "" });
 
   const fetchUsers = async (pg = 1) => {
@@ -53,8 +50,6 @@ const AdminUsers = () => {
     }
   };
 
-<<<<<<< HEAD
-=======
   const handleRoleChange = async (userId, newRole) => {
     setRoleUpdating(true);
     try {
@@ -71,7 +66,6 @@ const AdminUsers = () => {
     }
   };
 
->>>>>>> origin/feature/tejaswini-final
   const fmt = (d) => d ? new Date(d).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—";
 
   return (
@@ -203,8 +197,6 @@ const AdminUsers = () => {
             )}
 
             <div className="admin-modal-actions">
-<<<<<<< HEAD
-=======
               {selectedUser.user.role === "student" ? (
                 <button
                   className="btn btn-primary"
@@ -222,7 +214,6 @@ const AdminUsers = () => {
                   Demote to Student
                 </button>
               )}
->>>>>>> origin/feature/tejaswini-final
               <button className="btn btn-ghost" onClick={() => setSelectedUser(null)}>Close</button>
             </div>
           </div>

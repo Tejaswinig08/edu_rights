@@ -7,21 +7,22 @@ const VideoPlayer = ({ videos = [] }) => {
 
   // Extract YouTube video ID from various URL formats
   const getYouTubeId = (url) => {
+    if (!url || typeof url !== "string") return null;
+    const trimmed = url.trim();
+    if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
     const patterns = [
-      /youtu\.be\/([^?&]+)/,
-      /youtube\.com\/embed\/([^?&]+)/,
-      /youtube\.com\/watch\?v=([^?&]+)/,
-      /youtube\.com\/v\/([^?&]+)/,
+      /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([a-zA-Z0-9_-]{11})/i,
+      /^[a-zA-Z0-9_-]{11}$/,
     ];
     for (const pattern of patterns) {
-      const match = url.match(pattern);
-      if (match) return match[1];
+      const match = trimmed.match(pattern);
+      if (match && match[1]) return match[1];
     }
     return null;
   };
 
   const currentVideo = videos[activeVideo];
-  const videoId = getYouTubeId(currentVideo.url);
+  const videoId = currentVideo?.videoId || (currentVideo?.url ? getYouTubeId(currentVideo.url) : null);
 
   if (!videoId) return null;
 

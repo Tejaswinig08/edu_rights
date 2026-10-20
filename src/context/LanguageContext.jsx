@@ -6,7 +6,10 @@ import {
   hindiArticles,
   marathiModuleContent,
   marathiQuizzes,
-  marathiArticles
+  marathiArticles,
+  spanishModuleContent,
+  spanishQuizzes,
+  spanishArticles
 } from "../translations/contentTranslations";
 
 const LanguageContext = createContext();
@@ -20,7 +23,7 @@ export const toHindiDigits = (val) => {
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguageState] = useState(() => {
     const saved = localStorage.getItem("edurights-language");
-    return saved === "hi" ? "hi" : saved === "mr" ? "mr" : "en";
+    return saved === "hi" ? "hi" : saved === "mr" ? "mr" : saved === "es" ? "es" : "en";
   });
 
   useEffect(() => {
@@ -28,7 +31,7 @@ export const LanguageProvider = ({ children }) => {
   }, [language]);
 
   const setLanguage = (lang) => {
-    if (lang === "en" || lang === "hi" || lang === "mr") {
+    if (lang === "en" || lang === "hi" || lang === "mr" || lang === "es") {
       setLanguageState(lang);
       localStorage.setItem("edurights-language", lang);
       document.documentElement.lang = lang;
@@ -62,6 +65,9 @@ export const LanguageProvider = ({ children }) => {
     } else if (language === "mr" && typeof text === "string") {
       text = text.replace(/Module\s*(\d+)/gi, (m, p1) => `विभाग ${toHindiDigits(p1)}`);
       text = text.replace(/Section\s*(\d+)/gi, (m, p1) => `विभाग ${toHindiDigits(p1)}`);
+    } else if (language === "es" && typeof text === "string") {
+      text = text.replace(/Module\s*(\d+)/gi, (m, p1) => `Módulo ${p1}`);
+      text = text.replace(/Section\s*(\d+)/gi, (m, p1) => `Sección ${p1}`);
     }
     return text;
   };
@@ -87,6 +93,15 @@ export const LanguageProvider = ({ children }) => {
           .replace(/Module\s*(\d+)/gi, (m, p1) => `विभाग ${toHindiDigits(p1)}`)
           .replace(/Section\s*(\d+)/gi, (m, p1) => `विभाग ${toHindiDigits(p1)}`);
       }
+    } else if (language === "es") {
+      if (slug && translations.es?.moduleTitles?.[slug]) {
+        return translations.es.moduleTitles[slug];
+      }
+      if (typeof mod.title === "string") {
+        return mod.title
+          .replace(/Module\s*(\d+)/gi, (m, p1) => `Módulo ${p1}`)
+          .replace(/Section\s*(\d+)/gi, (m, p1) => `Sección ${p1}`);
+      }
     }
     return mod.title || "";
   };
@@ -100,6 +115,9 @@ export const LanguageProvider = ({ children }) => {
     if (language === "mr" && slug && translations.mr.moduleDescriptions[slug]) {
       return translations.mr.moduleDescriptions[slug];
     }
+    if (language === "es" && slug && translations.es?.moduleDescriptions?.[slug]) {
+      return translations.es.moduleDescriptions[slug];
+    }
     return mod.description || "";
   };
 
@@ -112,6 +130,9 @@ export const LanguageProvider = ({ children }) => {
     if (language === "mr" && slug && marathiModuleContent[slug]) {
       return marathiModuleContent[slug];
     }
+    if (language === "es" && slug && spanishModuleContent[slug]) {
+      return spanishModuleContent[slug];
+    }
     return mod.content || "";
   };
 
@@ -122,6 +143,9 @@ export const LanguageProvider = ({ children }) => {
     }
     if (language === "mr" && translations.mr.badgeNames[badgeName]) {
       return translations.mr.badgeNames[badgeName];
+    }
+    if (language === "es" && translations.es?.badgeNames?.[badgeName]) {
+      return translations.es.badgeNames[badgeName];
     }
     return badgeName;
   };
@@ -134,7 +158,7 @@ export const LanguageProvider = ({ children }) => {
 
   const getQuizData = (slug, quizObj) => {
     if (!quizObj) return null;
-    const qMap = language === "hi" ? hindiQuizzes : language === "mr" ? marathiQuizzes : null;
+    const qMap = language === "hi" ? hindiQuizzes : language === "mr" ? marathiQuizzes : language === "es" ? spanishQuizzes : null;
     if (qMap && slug && qMap[slug]) {
       const questions = qMap[slug];
       return {
@@ -167,15 +191,18 @@ export const LanguageProvider = ({ children }) => {
     } else if (language === "mr") {
       if (cat === "article" || cat === "Real Stories" || cat === "Stories") return "वास्तव कथा";
       if (cat === "faq" || cat === "FAQs") return "सतत विचारले जाणारे प्रश्न";
+    } else if (language === "es") {
+      if (cat === "article" || cat === "Real Stories" || cat === "Stories") return "Historias Reales";
+      if (cat === "faq" || cat === "FAQs") return "Preguntas Frecuentes";
     }
     return cat;
   };
 
   const getArticle = (art) => {
     if (!art) return null;
-    if (language === "hi" || language === "mr") {
+    if (language === "hi" || language === "mr" || language === "es") {
       const normTitle = normalizeStr(art.title);
-      const articleList = language === "hi" ? hindiArticles : marathiArticles;
+      const articleList = language === "hi" ? hindiArticles : language === "mr" ? marathiArticles : spanishArticles;
       const matched = articleList.find(
         (h) =>
           (h.englishTitle && normalizeStr(h.englishTitle) === normTitle) ||
@@ -186,13 +213,13 @@ export const LanguageProvider = ({ children }) => {
       const displayCategory = translateCategory(art.category);
       const displaySource =
         art.source === "UNICEF India"
-          ? (language === "hi" ? "यूनिसेफ इंडिया" : "युनिसेफ इंडिया")
+          ? (language === "hi" ? "यूनिसेफ इंडिया" : language === "mr" ? "युनिसेफ इंडिया" : "UNICEF India")
           : art.source === "UNICEF"
-          ? (language === "hi" ? "यूनिसेफ" : "युनिसेफ")
+          ? (language === "hi" ? "यूनिसेफ" : language === "mr" ? "युनिसेफ" : "UNICEF")
           : art.source === "CBSE"
-          ? (language === "hi" ? "सीबीएसई" : "सीबीएसई")
+          ? (language === "hi" ? "सीबीएसई" : language === "mr" ? "सीबीएसई" : "CBSE")
           : art.source === "EduRight Knowledge Hub"
-          ? (language === "hi" ? "EduRight ज्ञान कोष" : "EduRight ज्ञान कोष")
+          ? (language === "hi" ? "EduRight ज्ञान कोष" : language === "mr" ? "EduRight ज्ञान कोष" : "Centro de Conocimiento EduRight")
           : art.source;
 
       if (matched) {
@@ -217,7 +244,7 @@ export const LanguageProvider = ({ children }) => {
 
   const getArticleList = (articlesArr) => {
     if (!articlesArr || !Array.isArray(articlesArr)) return [];
-    if (language === "hi" || language === "mr") {
+    if (language === "hi" || language === "mr" || language === "es") {
       return articlesArr.map((art) => getArticle(art));
     }
     return articlesArr;

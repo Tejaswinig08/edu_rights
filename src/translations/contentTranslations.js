@@ -1317,3 +1317,6 @@ export const marathiArticles = [
     source: "भारत सरकार"
   }
 ];
+
+// Re-export Spanish translations
+export { spanishModuleContent, spanishQuizzes, spanishArticles } from "./spanishContent.js";

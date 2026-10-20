@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 
 import {
+  KeyRound,
   Mail,
   UserRound,
 } from "lucide-react";
@@ -31,6 +32,8 @@ function Signup() {
     password: "",
     confirmPassword: "",
     acceptTerms: false,
+    role: "user",
+    adminCode: "",
 
   });
 
@@ -122,6 +125,15 @@ function Signup() {
     }
 
 
+    if (form.role === "admin" && !form.adminCode.trim()) {
+      newErrors.adminCode =
+        language === "hi"
+          ? "व्यवस्थापक पंजीकरण कोड आवश्यक है"
+          : language === "mr"
+          ? "प्रशासक नोंदणी कोड आवश्यक आहे"
+          : "Admin registration code is required";
+    }
+
     if (!form.acceptTerms) {
 
       newErrors.acceptTerms =
@@ -152,11 +164,18 @@ const handleSubmit = async (event) => {
   setLoading(true);
 
   try {
-    const response = await api.post("/auth/signup", {
+    const payload = {
       name: form.name.trim(),
       email: form.email.trim().toLowerCase(),
       password: form.password,
-    });
+      role: form.role,
+    };
+
+    if (form.role === "admin") {
+      payload.adminCode = form.adminCode.trim();
+    }
+
+    const response = await api.post("/auth/signup", payload);
 
     toast.success(
       response.data?.message ||
@@ -207,6 +226,121 @@ const handleSubmit = async (event) => {
         onSubmit={handleSubmit}
         noValidate
       >
+
+        {/* ROLE SELECTION */}
+        <div className="role-selector-container">
+          <label
+            style={{
+              display: "block",
+              fontSize: "13px",
+              fontWeight: "800",
+              color: "#006863",
+              marginBottom: "8px",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase"
+            }}
+          >
+            {language === "hi" ? "अपनी भूमिका चुनें" : language === "mr" ? "आपली भूमिका निवडा" : language === "es" ? "Selecciona tu Rol" : "Select Your Role"}
+          </label>
+          <div style={{ display: "flex", gap: "12px", width: "100%" }}>
+            <label
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                padding: "14px 16px",
+                borderRadius: "18px",
+                border: form.role === "user" ? "2px solid #00b8ad" : "2px solid #b9f2eb",
+                background: form.role === "user" ? "#e6faf7" : "#fbfffe",
+                cursor: "pointer",
+                fontWeight: "800",
+                fontSize: "15px",
+                color: form.role === "user" ? "#006863" : "#689290",
+                boxShadow: form.role === "user" ? "0 4px 12px rgba(0, 184, 173, 0.15)" : "none",
+                transition: "all 0.2s ease"
+              }}
+            >
+              <input
+                type="radio"
+                name="role"
+                value="user"
+                checked={form.role === "user"}
+                onChange={handleChange}
+                style={{ accentColor: "#00b8ad", width: "17px", height: "17px", cursor: "pointer" }}
+              />
+              <span>{language === "es" ? "Usuario" : "User"}</span>
+            </label>
+
+            <label
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                padding: "14px 16px",
+                borderRadius: "18px",
+                border: form.role === "admin" ? "2px solid #00b8ad" : "2px solid #b9f2eb",
+                background: form.role === "admin" ? "#e6faf7" : "#fbfffe",
+                cursor: "pointer",
+                fontWeight: "800",
+                fontSize: "15px",
+                color: form.role === "admin" ? "#006863" : "#689290",
+                boxShadow: form.role === "admin" ? "0 4px 12px rgba(0, 184, 173, 0.15)" : "none",
+                transition: "all 0.2s ease"
+              }}
+            >
+              <input
+                type="radio"
+                name="role"
+                value="admin"
+                checked={form.role === "admin"}
+                onChange={handleChange}
+                style={{ accentColor: "#00b8ad", width: "17px", height: "17px", cursor: "pointer" }}
+              />
+              <span>{language === "es" ? "Administrador" : "Admin"}</span>
+            </label>
+          </div>
+        </div>
+
+        {/* ADMIN REGISTRATION CODE (Conditional) */}
+        {form.role === "admin" && (
+          <div>
+            <div
+              className={`input-box ${
+                errors.adminCode
+                  ? "input-error"
+                  : ""
+              }`}
+            >
+              <KeyRound size={21} />
+              <input
+                type="password"
+                name="adminCode"
+                value={form.adminCode}
+                onChange={handleChange}
+                placeholder={
+                  language === "hi"
+                    ? "व्यवस्थापक पंजीकरण कोड दर्ज करें *"
+                    : language === "mr"
+                    ? "प्रशासक नोंदणी कोड प्रविष्ट करा *"
+                    : language === "es"
+                    ? "Código de Registro de Administrador *"
+                    : "Admin Registration Code *"
+                }
+                autoComplete="off"
+              />
+            </div>
+
+            {errors.adminCode && (
+              <small className="field-error">
+                {errors.adminCode}
+              </small>
+            )}
+          </div>
+        )}
 
         {/* NAME */}
 

@@ -2,6 +2,118 @@ import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import AdminLayout from "./AdminLayout";
 
+const EMPTY_Q = { question: "", options: ["", "", "", ""], correctIndex: 0, explanation: "" };
+
+const QuestionEditor = ({
+  questions,
+  updateQ,
+  updateOption,
+  addQuestion,
+  removeQuestion,
+  onSubmit,
+  onCancel,
+  submitLabel,
+  saving,
+}) => (
+  <form className="admin-form" onSubmit={onSubmit}>
+    {questions.map((q, qi) => (
+      <div key={qi} className="admin-card" style={{ marginBottom: 16 }}>
+        <div className="admin-card-header">
+          <span className="admin-card-title">Question {qi + 1}</span>
+          {questions.length > 1 && (
+            <button
+              type="button"
+              className="btn btn-danger btn-sm"
+              onClick={() => removeQuestion(qi)}
+            >
+              Remove
+            </button>
+          )}
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label">Question Text *</label>
+          <input
+            className="admin-form-input"
+            value={q.question}
+            onChange={(e) => updateQ(qi, "question", e.target.value)}
+            placeholder="Enter question text..."
+            required
+          />
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label">Options (4 required) *</label>
+          {q.options.map((opt, oi) => (
+            <div
+              key={oi}
+              style={{
+                display: "flex",
+                gap: 10,
+                marginBottom: 8,
+                alignItems: "center",
+              }}
+            >
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  cursor: "pointer",
+                  fontSize: 13,
+                  fontWeight: Number(q.correctIndex) === oi ? "700" : "500",
+                  color: Number(q.correctIndex) === oi ? "#27ae60" : "#7f8c8d",
+                  minWidth: 85,
+                }}
+                title="Mark as correct answer"
+              >
+                <input
+                  type="radio"
+                  name={`correct-answer-${qi}`}
+                  checked={Number(q.correctIndex) === oi}
+                  onChange={() => updateQ(qi, "correctIndex", oi)}
+                  style={{ accentColor: "#27ae60", width: 16, height: 16, cursor: "pointer" }}
+                />
+                <span>{Number(q.correctIndex) === oi ? "✓ Correct" : `Option ${oi + 1}`}</span>
+              </label>
+              <input
+                className="admin-form-input"
+                value={opt}
+                onChange={(e) => updateOption(qi, oi, e.target.value)}
+                placeholder={`Option ${oi + 1} text`}
+                required
+              />
+            </div>
+          ))}
+          <small style={{ color: "#7f8c8d" }}>
+            Select the radio button next to the correct answer.
+          </small>
+        </div>
+        <div className="admin-form-group">
+          <label className="admin-form-label">Explanation (optional)</label>
+          <input
+            className="admin-form-input"
+            value={q.explanation || ""}
+            onChange={(e) => updateQ(qi, "explanation", e.target.value)}
+            placeholder="Explanation shown after quiz completion..."
+          />
+        </div>
+      </div>
+    ))}
+    <div style={{ marginBottom: 16 }}>
+      <button type="button" className="btn btn-ghost" onClick={addQuestion}>
+        + Add Question
+      </button>
+    </div>
+    <div className="admin-modal-actions">
+      <button type="button" className="btn btn-ghost" onClick={onCancel}>
+        Cancel
+      </button>
+      <button type="submit" className="btn btn-primary" disabled={saving}>
+        {saving ? "Saving..." : submitLabel}
+      </button>
+    </div>
+  </form>
+);
+
 const AdminQuizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [modules, setModules] = useState([]);
@@ -12,9 +124,7 @@ const AdminQuizzes = () => {
   const [newModuleId, setNewModuleId] = useState("");
   const [saving, setSaving] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
-
-  const EMPTY_Q = { question: "", options: ["", "", "", ""], correctIndex: 0, explanation: "" };
-  const [editQuestions, setEditQuestions] = useState([{ ...EMPTY_Q }]);
+  const [editQuestions, setEditQuestions] = useState([{ ...EMPTY_Q, options: ["", "", "", ""] }]);
 
   const fetchAll = async () => {
     setLoading(true);
@@ -41,16 +151,23 @@ const AdminQuizzes = () => {
 
   const openQuiz = (quiz) => {
     setSelectedQuiz(quiz);
-    // Normalize questions — they might have object fields (en/mr) from multilingual version
-    const normalized = (quiz.questions || []).map((q) => ({
-      question: typeof q.question === "object" ? q.question.en || "" : q.question || "",
-      options: typeof q.options === "object" && !Array.isArray(q.options)
-        ? q.options.en || ["", "", "", ""]
-        : q.options || ["", "", "", ""],
-      correctIndex: q.correctIndex ?? 0,
-      explanation: typeof q.explanation === "object" ? q.explanation.en || "" : q.explanation || "",
-    }));
-    setEditQuestions(normalized.length > 0 ? normalized : [{ ...EMPTY_Q }]);
+    const normalized = (quiz.questions || []).map((q) => {
+      let opts = Array.isArray(q.options) ? [...q.options] : [];
+      if (typeof q.options === "object" && !Array.isArray(q.options)) {
+        opts = q.options.en || ["", "", "", ""];
+      }
+      while (opts.length < 4) opts.push("");
+      opts = opts.slice(0, 4);
+
+      return {
+        _id: q._id,
+        question: typeof q.question === "object" ? q.question.en || "" : q.question || "",
+        options: opts,
+        correctIndex: typeof q.correctIndex === "number" ? q.correctIndex : Number(q.correctIndex || 0),
+        explanation: typeof q.explanation === "object" ? q.explanation.en || "" : q.explanation || "",
+      };
+    });
+    setEditQuestions(normalized.length > 0 ? normalized : [{ ...EMPTY_Q, options: ["", "", "", ""] }]);
   };
 
   const updateQ = (idx, field, value) => {
@@ -64,22 +181,67 @@ const AdminQuizzes = () => {
   const updateOption = (qIdx, optIdx, value) => {
     setEditQuestions((prev) => {
       const updated = [...prev];
-      const opts = [...updated[qIdx].options];
+      const q = { ...updated[qIdx] };
+      const opts = [...(q.options || ["", "", "", ""])];
       opts[optIdx] = value;
-      updated[qIdx] = { ...updated[qIdx], options: opts };
+      q.options = opts;
+      updated[qIdx] = q;
       return updated;
     });
   };
 
-  const addQuestion = () => setEditQuestions((prev) => [...prev, { ...EMPTY_Q, options: ["", "", "", ""] }]);
-  const removeQuestion = (idx) => setEditQuestions((prev) => prev.filter((_, i) => i !== idx));
+  const addQuestion = () => {
+    setEditQuestions((prev) => [...prev, { ...EMPTY_Q, options: ["", "", "", ""] }]);
+  };
+
+  const removeQuestion = (idx) => {
+    setEditQuestions((prev) => prev.filter((_, i) => i !== idx));
+  };
+
+  const validateQuiz = (questions) => {
+    if (!questions || questions.length === 0) {
+      return "Quiz must contain at least one question.";
+    }
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
+      if (!q.question || !q.question.trim()) {
+        return `Question #${i + 1} is missing question text.`;
+      }
+      if (!q.options || q.options.length < 2) {
+        return `Question #${i + 1} must have at least 2 options.`;
+      }
+      for (let oi = 0; oi < q.options.length; oi++) {
+        if (!q.options[oi] || !q.options[oi].trim()) {
+          return `Question #${i + 1}, Option ${oi + 1} cannot be empty.`;
+        }
+      }
+      if (q.correctIndex === undefined || q.correctIndex === null || q.correctIndex < 0 || q.correctIndex >= q.options.length) {
+        return `Question #${i + 1} must have a valid correct answer selected.`;
+      }
+    }
+    return null;
+  };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    const errorMsg = validateQuiz(editQuestions);
+    if (errorMsg) {
+      setAlert({ type: "error", msg: errorMsg });
+      return;
+    }
     setSaving(true);
     try {
-      await api.put(`/admin/quizzes/${selectedQuiz._id}`, { questions: editQuestions });
-      setAlert({ type: "success", msg: "Quiz updated!" });
+      const payload = {
+        questions: editQuestions.map((q) => ({
+          _id: q._id,
+          question: q.question.trim(),
+          options: q.options.map((opt) => opt.trim()),
+          correctIndex: Number(q.correctIndex),
+          explanation: (q.explanation || "").trim(),
+        })),
+      };
+      await api.put(`/admin/quizzes/${selectedQuiz._id}`, payload);
+      setAlert({ type: "success", msg: "Quiz updated successfully!" });
       setSelectedQuiz(null);
       fetchAll();
     } catch (err) {
@@ -91,14 +253,31 @@ const AdminQuizzes = () => {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    if (!newModuleId) { setAlert({ type: "error", msg: "Select a module." }); return; }
+    if (!newModuleId) {
+      setAlert({ type: "error", msg: "Select a module." });
+      return;
+    }
+    const errorMsg = validateQuiz(editQuestions);
+    if (errorMsg) {
+      setAlert({ type: "error", msg: errorMsg });
+      return;
+    }
     setSaving(true);
     try {
-      await api.post("/admin/quizzes", { moduleId: newModuleId, questions: editQuestions });
-      setAlert({ type: "success", msg: "Quiz created!" });
+      const payload = {
+        moduleId: newModuleId,
+        questions: editQuestions.map((q) => ({
+          question: q.question.trim(),
+          options: q.options.map((opt) => opt.trim()),
+          correctIndex: Number(q.correctIndex),
+          explanation: (q.explanation || "").trim(),
+        })),
+      };
+      await api.post("/admin/quizzes", payload);
+      setAlert({ type: "success", msg: "Quiz created successfully!" });
       setShowCreate(false);
       setNewModuleId("");
-      setEditQuestions([{ ...EMPTY_Q }]);
+      setEditQuestions([{ ...EMPTY_Q, options: ["", "", "", ""] }]);
       fetchAll();
     } catch (err) {
       setAlert({ type: "error", msg: err.response?.data?.message || "Create failed." });
@@ -117,50 +296,6 @@ const AdminQuizzes = () => {
       setAlert({ type: "error", msg: "Delete failed." });
     }
   };
-
-  const QuestionEditor = ({ onSubmit, submitLabel }) => (
-    <form className="admin-form" onSubmit={onSubmit}>
-      {editQuestions.map((q, qi) => (
-        <div key={qi} className="admin-card" style={{ marginBottom: 16 }}>
-          <div className="admin-card-header">
-            <span className="admin-card-title">Question {qi + 1}</span>
-            {editQuestions.length > 1 && (
-              <button type="button" className="btn btn-danger btn-sm" onClick={() => removeQuestion(qi)}>Remove</button>
-            )}
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label">Question Text</label>
-            <input className="admin-form-input" value={q.question} onChange={(e) => updateQ(qi, "question", e.target.value)} required />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label">Options (4 required)</label>
-            {q.options.map((opt, oi) => (
-              <div key={oi} style={{ display: "flex", gap: 8, marginBottom: 6, alignItems: "center" }}>
-                <input
-                  type="radio"
-                  name={`correct-${qi}`}
-                  checked={q.correctIndex === oi}
-                  onChange={() => updateQ(qi, "correctIndex", oi)}
-                  title="Mark as correct answer"
-                />
-                <input className="admin-form-input" value={opt} onChange={(e) => updateOption(qi, oi, e.target.value)} placeholder={`Option ${oi + 1}`} required />
-              </div>
-            ))}
-            <small style={{ color: "#7f8c8d" }}>Select the radio button next to the correct answer.</small>
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label">Explanation (optional)</label>
-            <input className="admin-form-input" value={q.explanation} onChange={(e) => updateQ(qi, "explanation", e.target.value)} />
-          </div>
-        </div>
-      ))}
-      <button type="button" className="btn btn-ghost" onClick={addQuestion}>+ Add Question</button>
-      <div className="admin-modal-actions">
-        <button type="button" className="btn btn-ghost" onClick={() => { setSelectedQuiz(null); setShowCreate(false); }}>Cancel</button>
-        <button type="submit" className="btn btn-primary" disabled={saving}>{saving ? "Saving..." : submitLabel}</button>
-      </div>
-    </form>
-  );
 
   return (
     <AdminLayout pageTitle="Quizzes">
@@ -216,7 +351,17 @@ const AdminQuizzes = () => {
                 ))}
               </select>
             </div>
-            <QuestionEditor onSubmit={handleCreate} submitLabel="Create Quiz" />
+            <QuestionEditor
+              questions={editQuestions}
+              updateQ={updateQ}
+              updateOption={updateOption}
+              addQuestion={addQuestion}
+              removeQuestion={removeQuestion}
+              onSubmit={handleCreate}
+              onCancel={() => setShowCreate(false)}
+              submitLabel="Create Quiz"
+              saving={saving}
+            />
           </div>
         </>
       )}
@@ -227,7 +372,17 @@ const AdminQuizzes = () => {
             <h2>✏️ Edit Quiz — {getModuleTitle(selectedQuiz.moduleId)}</h2>
           </div>
           <div className="admin-card">
-            <QuestionEditor onSubmit={handleUpdate} submitLabel="Update Quiz" />
+            <QuestionEditor
+              questions={editQuestions}
+              updateQ={updateQ}
+              updateOption={updateOption}
+              addQuestion={addQuestion}
+              removeQuestion={removeQuestion}
+              onSubmit={handleUpdate}
+              onCancel={() => setSelectedQuiz(null)}
+              submitLabel="Update Quiz"
+              saving={saving}
+            />
           </div>
         </>
       )}

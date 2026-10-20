@@ -57,7 +57,7 @@ const ModuleCard = ({ module, userLevel, onOpenFeedback }) => {
                 }
               }}
             >
-              Feedback
+              {t("feedback")}
             </button>
           </div>
         )}
